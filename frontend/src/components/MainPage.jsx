@@ -1,32 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Sidebar from ".//Sidebar";
-import { useQuery } from "@tanstack/react-query";
+import { useIsFetching, useQuery } from "@tanstack/react-query";
 import MainLoading from "./MainLoading";
-import { fetchWorkspaces } from "../api";
-import { useWorkspace } from "../context/WorkspaceContext";
+import { Outlet } from "react-router-dom";
 
 const MainPage = () => {
-  const { currentWorkspace, setCurrentWorkspace } = useWorkspace();
-
-  const { data: workspaces, isFetched } = useQuery({
-    queryKey: ["workspaces"],
-    queryFn: fetchWorkspaces,
-    staleTime: Infinity,
-  });
-
-  useEffect(() => {
-    if (isFetched) {
-      setCurrentWorkspace(workspaces[0]);
-    }
-  }, [isFetched]);
-
-  if (!currentWorkspace) {
-    return <MainLoading></MainLoading>;
-  }
+  const isFetching = useIsFetching();
   return (
-    <div>
-      <Sidebar workspaces={workspaces}></Sidebar>
-    </div>
+    <>
+      {isFetching > 0 && <MainLoading />}
+      <div className="flex gap-2">
+        <Sidebar />
+        <Outlet></Outlet>
+      </div>
+    </>
   );
 };
 

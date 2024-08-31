@@ -1,34 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import WorkspaceNavigator from "./WorkspaceNavigator";
-import Option from "./Option";
-import {
-  homeImage,
-  inboxImage,
-  dashboardImage,
-  rImage,
-} from "../assets/images";
+import { homeImage, inboxImage, dashboardImage } from "../assets/images";
 import SidebarNavigator from "./SidebarNavigator";
 import Spaces from "./Spaces";
-import Space from "./Space";
-import { useWorkspace } from "../context/WorkspaceContext";
+import SidebarLink from "./SidebarLink";
+import { useParams } from "react-router-dom";
 
-const Sidebar = ({ workspaces }) => {
-  const { currentWorkspace } = useWorkspace();
+const Sidebar = () => {
+  const { workspaceId } = useParams();
+
   return (
-    <div className="h-screen w-[300px] bg-[#F7F8F9] p-2 overflow-auto">
-      <WorkspaceNavigator workspaces={workspaces}></WorkspaceNavigator>
+    <div className="h-screen w-[300px] overflow-auto bg-[#F7F8F9] p-2">
+      <WorkspaceNavigator />
       <SidebarNavigator>
-        <Option option={{ title: "Home", image: homeImage }}></Option>
-        <Option option={{ title: "Inbox", image: inboxImage }}></Option>
-        <Option
-          option={{ title: "Dashboards", image: dashboardImage }}
-        ></Option>
+        <SidebarLink
+          link={{ title: "Home", image: homeImage, to: `/${workspaceId}/home` }}
+        />
+        <SidebarLink
+          link={{
+            title: "Inbox",
+            image: inboxImage,
+            to: `/${workspaceId}/inbox`,
+          }}
+        />
+        <SidebarLink
+          link={{
+            title: "Dashboards",
+            image: dashboardImage,
+            to: `/${workspaceId}/dashboards`,
+          }}
+        />
       </SidebarNavigator>
-      <Spaces>
-        {currentWorkspace.spaces.map((space, index) => (
-          <Space space={space} key={index}></Space>
-        ))}
-      </Spaces>
+      <Spaces />
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import MainPage from "./components/MainPage";
-import { WorkspaceProvider } from "./context/WorkspaceContext";
+import { RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import router from "./router/router";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -10,15 +10,18 @@ const queryClient = new QueryClient({
   },
 });
 
+queryClient.setDefaultOptions({
+  queries: {
+    staleTime: Infinity,
+  },
+});
 
 function App() {
   return (
     <>
-      <WorkspaceProvider>
-        <QueryClientProvider client={queryClient}>
-          <MainPage></MainPage>
-        </QueryClientProvider>
-      </WorkspaceProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router}></RouterProvider>
+      </QueryClientProvider>
     </>
   );
 }

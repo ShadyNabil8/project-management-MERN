@@ -4,11 +4,18 @@ import SelectedWorkspace from "./SelectedWorkspace";
 import WorkspaceList from "./WorkspaceList";
 import Workspace from "./Workspace";
 import Option from "./Option";
-import { useWorkspace } from "../context/WorkspaceContext";
 import { addImage } from "../assets/images";
-const WorkspaceNavigator = ({ workspaces }) => {
+import { useQuery } from "@tanstack/react-query";
+import { fetchWorkspaces } from "../api";
+import { useParams } from "react-router-dom";
+const WorkspaceNavigator = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { currentWorkspace } = useWorkspace();
+  const { workspaceId } = useParams();
+
+  const { data: workspaces } = useQuery({
+    queryKey: ["workspaces"],
+    queryFn: fetchWorkspaces,
+  });
 
   const toggleList = () => {
     setIsVisible((prev) => !prev);
@@ -20,10 +27,10 @@ const WorkspaceNavigator = ({ workspaces }) => {
       <div
         className={`absolute inset-x-0 mt-3 rounded-md bg-white p-3 shadow-3xl ${isVisible ? "block" : "hidden"}`}
       >
-        <SelectedWorkspace workspace={currentWorkspace}></SelectedWorkspace>
+        <SelectedWorkspace></SelectedWorkspace>
         <WorkspaceList>
-          {workspaces.map((workspace, index) =>
-            workspace.id !== currentWorkspace.id ? (
+          {workspaces?.map((workspace, index) =>
+            workspace.id !== workspaceId ? (
               <Workspace
                 key={index}
                 workspace={workspace}

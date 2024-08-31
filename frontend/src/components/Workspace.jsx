@@ -1,18 +1,13 @@
 import React from "react";
-import { useWorkspace } from "../context/WorkspaceContext";
+import { Link } from "react-router-dom";
 
 const Workspace = ({ workspace, toggleList }) => {
-  const { setCurrentWorkspace } = useWorkspace();
-
-  const handleSelect = (e) => {
-    setCurrentWorkspace(workspace);
-    toggleList();
-  };
-
   return (
-    <div
+    <Link
+      reloadDocument
+      to={`/${workspace.id}/home`}
       className="flex cursor-pointer rounded-md p-2 hover:bg-gray-200"
-      onClick={handleSelect}
+      onClick={() => toggleList()}
     >
       <span className="flex shrink-0 items-center">
         <img src={workspace.image} className="size-8 rounded-md"></img>
@@ -23,7 +18,7 @@ const Workspace = ({ workspace, toggleList }) => {
         </span>
         <span className="text-xs">{workspace.members} members</span>
       </div>
-    </div>
+    </Link>
   );
 };
 
