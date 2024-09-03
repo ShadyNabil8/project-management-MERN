@@ -6,6 +6,7 @@ import user from "./images/user.png";
 import inbox from "./images/inbox.png";
 import dashboard from "./images/dashboard.png";
 import list from "./images/list.png";
+import menu from "./images/menu.png";
 import r from "./images/r.jpeg";
 import c from "./images/c.jpeg";
 import d from "./images/d.jpeg";
@@ -29,3 +30,5 @@ export const mImage = m;
 export const cImage = c;
 export const arrowdownImage = arrowdown;
 export const listImage = list;
+export const menuImage = menu;
+

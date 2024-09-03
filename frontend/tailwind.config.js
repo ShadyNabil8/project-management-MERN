@@ -15,6 +15,12 @@ export default {
       animation: {
         bounce: "bounce 1s ease-in-out infinite",
       },
+      gridTemplateColumns: {
+        55: "300px auto",
+      },
+      gridTemplateRows: {
+        '55': 'auto 1fr',
+      }
     },
   },
   plugins: [require("tailwindcss-animation-delay")],

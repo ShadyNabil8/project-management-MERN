@@ -17,6 +17,7 @@ export const fetchSpaces = async (workspaceId) => {
     setTimeout(resolve, 1000);
   });
   const spaces = spacesData.filter((space) => space.workspaceId == workspaceId);
+  
   return spaces;
 };
 
@@ -26,6 +27,7 @@ export const fetchLists = async (spaceId) => {
   await new Promise((resolve) => {
     setTimeout(resolve, 1000);
   });
+
   const lists = listsData.filter((list) => list.spaceId == spaceId);
   return lists;
 };
@@ -40,4 +42,27 @@ export const fetchWorkspace = async (workspaceId) => {
     (workspace) => workspace.id == workspaceId,
   );
   return workspace;
+};
+
+export const fetchSpace = async (spaceId) => {
+  console.log("Inside fetchSpace");
+  
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
+
+  const space = spacesData.find((space) => space.id == spaceId);
+
+  return space;
+};
+
+export const fetchList = async (listId) => {
+  console.log("Inside fetchList");
+
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
+
+  const list = listsData.find((list) => list.id == listId);
+  return list;
 };

@@ -3,19 +3,16 @@ import { arrowdownImage } from "../assets/images";
 import Lists from "./Lists";
 import List from "./List";
 import { Link, useParams } from "react-router-dom";
+import useFetchData from "../hooks/useFetchData";
 import { fetchLists } from "../api";
-import { useQuery } from "@tanstack/react-query";
 
 const Space = ({ space }) => {
   const [imgSrc, setImgSrc] = useState(space.image);
   const [isDropped, setIsDropped] = useState(false);
-
   const { workspaceId } = useParams();
-
-  const { data: lists } = useQuery({
-    queryKey: ["lists", space.id],
-    queryFn: () => fetchLists(space.id),
-  });
+  const { data: lists, isLoading } = useFetchData(["lists", space.id], () =>
+    fetchLists(space.id),
+  );
   return (
     <>
       <Link
@@ -26,7 +23,11 @@ const Space = ({ space }) => {
       >
         <span
           className="shrink-0 rounded-md p-1 hover:bg-gray-300"
-          onClick={() => setIsDropped((prev) => !prev)}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            setIsDropped((prev) => !prev);
+          }}
         >
           <img className="size-5 rounded-md" src={imgSrc}></img>
         </span>
@@ -37,7 +38,7 @@ const Space = ({ space }) => {
       {isDropped && (
         <Lists>
           {lists?.map((list, index) => (
-            <List list={list} key={index}></List>
+            <List list={list} space={space} key={index}></List>
           ))}
         </Lists>
       )}

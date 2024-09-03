@@ -5,6 +5,7 @@ import { settingsImage, userImage } from "../assets/images";
 import { fetchWorkspace } from "../api";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import useFetchData from "../hooks/useFetchData";
 
 const options = [
   {
@@ -19,11 +20,10 @@ const options = [
 
 const SelectedWorkspace = () => {
   const { workspaceId } = useParams();
-
-  const { data: workspace } = useQuery({
-    queryKey: ["workspace", workspaceId],
-    queryFn: () => fetchWorkspace(workspaceId),
-  });
+  const { data: workspace, isLoading } = useFetchData(
+    ["workspaces", workspaceId],
+    () => fetchWorkspace(workspaceId),
+  );
 
   return (
     <div className="mb-2 flex flex-col justify-center border-b border-gray-200">

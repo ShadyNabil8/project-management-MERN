@@ -1,19 +1,19 @@
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import useFetchData from "../hooks/useFetchData";
+import { fetchWorkspace } from "../api";
 
 const WorkspaceButton = ({ onClick }) => {
   const { workspaceId } = useParams();
-
-  const { data: workspace } = useQuery({
-    queryKey: ["workspace", workspaceId],
-    queryFn: () => fetchWorkspace(workspaceId),
-  });
+  const { data: workspace, isLoading } = useFetchData(
+    ["workspaces", workspaceId],
+    () => fetchWorkspace(workspaceId),
+  );
 
   return (
     <div
-      className="flex items-center justify-between rounded-md p-2 hover:bg-gray-200"
+      className="flex max-w-[70%] items-center justify-between rounded-md p-1 hover:bg-gray-200"
       onClick={() => onClick()}
     >
       <div className="flex items-center">
