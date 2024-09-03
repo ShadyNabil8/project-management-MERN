@@ -24,7 +24,7 @@ const WorkspaceNavigator = () => {
     <div className="relative flex items-center border-b border-r bg-[#F7F8F9] p-2">
       <WorkspaceButton onClick={toggleList}></WorkspaceButton>
       <div
-        className={`absolute left-3 top-11 mt-3 min-w-64 rounded-md bg-white p-3 shadow-3xl ${isVisible ? "block" : "hidden"}`}
+        className={`absolute left-3 top-11 p-2 mt-3 min-w-64 rounded-md bg-white shadow-3xl ${isVisible ? "block" : "hidden"}`}
       >
         <SelectedWorkspace></SelectedWorkspace>
         <WorkspaceList>

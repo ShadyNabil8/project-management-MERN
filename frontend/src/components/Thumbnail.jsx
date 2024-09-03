@@ -5,7 +5,7 @@ const Thumbnail = ({ image, size = 18, isRounded = true }) => {
     <span className="shrink-0">
       {image ? (
         <img
-          className={`w-[${size}px] ${isRounded ? "rounded-md" : "rounded-none"}`}
+          className={`w-[${18}px] h-[${18}px] ${isRounded ? "rounded-md" : "rounded-none"}`}
           src={image}
         ></img>
       ) : (
