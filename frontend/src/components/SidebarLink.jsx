@@ -8,7 +8,7 @@ const SidebarLink = ({ link }) => {
       to={link.to}
       className="flex cursor-pointer items-center rounded-md p-2 hover:bg-gray-200"
     >
-      <Thumbnail image={link?.image} size={18} isRounded={false} />
+      <Thumbnail image={link?.image} isRounded={false} />
       <span className="ml-3 text-sm text-gray-800">{link.title}</span>
     </Link>
   );

@@ -1,16 +1,16 @@
 import React from "react";
 
-const Thumbnail = ({ image, size = 18, isRounded = true }) => {
+const Thumbnail = ({ image, size = 5, isRounded = true }) => {
   return (
     <span className="shrink-0">
       {image ? (
         <img
-          className={`w-[${18}px] h-[${18}px] ${isRounded ? "rounded-md" : "rounded-none"}`}
+          className={`size-${size} ${isRounded ? "rounded-md" : "rounded-none"}`}
           src={image}
         ></img>
       ) : (
         <div
-          className={`h-[${size}px] w-[${size}px] animate-pulse rounded-md bg-slate-300`}
+          className={`size-${size} animate-pulse rounded-md bg-slate-300`}
         ></div>
       )}
     </span>

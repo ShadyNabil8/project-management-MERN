@@ -66,3 +66,15 @@ export const fetchList = async (listId) => {
   const list = listsData.find((list) => list.id == listId);
   return list;
 };
+
+export const fetchUser = async (token) => {
+  console.log("Inside fetchList");
+
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
+
+  const list = listsData.find((list) => list.id == listId);
+  return list;
+};
+

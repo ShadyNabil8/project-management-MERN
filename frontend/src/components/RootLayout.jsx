@@ -1,13 +1,12 @@
 import React from "react";
-import Sidebar from ".//Sidebar";
+import Sidebar from "./Sidebar";
 import { useIsFetching } from "@tanstack/react-query";
 import MainLoading from "./MainLoading";
 import { Outlet } from "react-router-dom";
 import WorkspaceNavigator from "./WorkspaceNavigator";
 import Header from "./Header";
-import OutletHeader from "./OutletHeader";
 
-const MainPage = () => {
+const RootLayout = () => {
   const isFetching = useIsFetching({ queryKey: ["workspaces"] });
   return (
     <>
@@ -26,4 +25,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default RootLayout;

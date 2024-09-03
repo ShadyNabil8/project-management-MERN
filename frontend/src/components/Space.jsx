@@ -5,6 +5,7 @@ import List from "./List";
 import { Link, useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchLists } from "../api";
+import Thumbnail from "./Thumbnail";
 
 const Space = ({ space }) => {
   const [imgSrc, setImgSrc] = useState(space.image);
@@ -22,14 +23,14 @@ const Space = ({ space }) => {
         onMouseLeave={() => setImgSrc(space.image)}
       >
         <span
-          className="shrink-0 rounded-md p-1 hover:bg-gray-300"
+          className="hover:bg-gray-300"
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
             setIsDropped((prev) => !prev);
           }}
         >
-          <img className="size-5 rounded-md" src={imgSrc}></img>
+          <Thumbnail image={imgSrc} />
         </span>
         <span className="ml-2 flex items-center text-gray-800">
           {space.name}

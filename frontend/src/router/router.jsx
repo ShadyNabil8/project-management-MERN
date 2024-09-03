@@ -1,5 +1,5 @@
 import { createBrowserRouter, Link, redirect } from "react-router-dom";
-import MainPage from "../components/MainPage";
+import RootLayout from "../components/RootLayout";
 import { workspacesData } from "../assets/data";
 import WorkspaceHome from "../components/WorkspaceHome";
 import WorkspaceInbox from "../components/WorkspaceInbox";
@@ -17,7 +17,7 @@ const authLoader = () => {
   return null;
 };
 
-const mainLoader = () => {
+const redirectLoader = () => {
   if (!isAuthenticated()) {
     return redirect("/login");
   }
@@ -29,11 +29,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <div>Welcome</div>,
-    loader: mainLoader,
+    loader: redirectLoader,
   },
   {
     path: "/:workspaceId",
-    element: <MainPage />,
+    element: <RootLayout />,
     loader: authLoader,
     children: [
       {
