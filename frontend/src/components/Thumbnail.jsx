@@ -5,13 +5,11 @@ const Thumbnail = ({ image, size = 5, isRounded = true }) => {
     <span className="shrink-0">
       {image ? (
         <img
-          className={`size-${size} ${isRounded ? "rounded-md" : "rounded-none"}`}
+          className={`size-4 ${isRounded ? "rounded-md" : "rounded-none"}`}
           src={image}
         ></img>
       ) : (
-        <div
-          className={`size-${size} animate-pulse rounded-md bg-slate-300`}
-        ></div>
+        <div className={`size-4 animate-pulse rounded-md bg-slate-300`}></div>
       )}
     </span>
   );

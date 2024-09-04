@@ -17,7 +17,7 @@ export const fetchSpaces = async (workspaceId) => {
     setTimeout(resolve, 1000);
   });
   const spaces = spacesData.filter((space) => space.workspaceId == workspaceId);
-  
+
   return spaces;
 };
 
@@ -41,12 +41,13 @@ export const fetchWorkspace = async (workspaceId) => {
   const workspace = workspacesData.find(
     (workspace) => workspace.id == workspaceId,
   );
-  return workspace;
+
+  return workspace || null;
 };
 
 export const fetchSpace = async (spaceId) => {
   console.log("Inside fetchSpace");
-  
+
   await new Promise((resolve) => {
     setTimeout(resolve, 1000);
   });
@@ -77,4 +78,3 @@ export const fetchUser = async (token) => {
   const list = listsData.find((list) => list.id == listId);
   return list;
 };
-

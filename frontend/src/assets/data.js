@@ -254,3 +254,8 @@ export const workspacesData = [
     members: "12",
   },
 ];
+
+export const fakeUsersData = {
+  name: "shady",
+  workspaces: ["1", "2", "3"],
+};

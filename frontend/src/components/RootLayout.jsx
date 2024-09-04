@@ -10,7 +10,6 @@ const RootLayout = () => {
   const isFetching = useIsFetching({ queryKey: ["workspaces"] });
   return (
     <>
-      {isFetching > 0 && <MainLoading />}
       <div className="grid h-screen w-screen grid-cols-[14%_auto] grid-rows-[40px_50px_auto]">
         <div className="col-span-2">
           <Header />
