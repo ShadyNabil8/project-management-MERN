@@ -1,13 +1,24 @@
 import { listsData, spacesData, workspacesData } from "../assets/data";
+import api, { LOGIN_ROUTE, GET_USER_ROUTE, GET_WORKSPACES_ROUTE } from "./api";
+
+export const getUser = async function () {
+  try {
+    const response = await api.get(GET_USER_ROUTE);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user:", error.message);
+    throw error;
+  }
+};
 
 export const fetchWorkspaces = async () => {
-  console.log("Inside fetchWorkspaces");
-
-  await new Promise((resolve) => {
-    setTimeout(resolve, 2000);
-  });
-
-  return workspacesData;
+  try {
+    const response = await api.get(GET_WORKSPACES_ROUTE);
+    return response.data.workspacesDocuments;
+  } catch (error) {
+    console.error("Error fetching workspaces:", error.message);
+    throw error;
+  }
 };
 
 export const fetchSpaces = async (workspaceId) => {
@@ -33,16 +44,10 @@ export const fetchLists = async (spaceId) => {
 };
 
 export const fetchWorkspace = async (workspaceId) => {
-  console.log("Inside fetchWorkspace");
-
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
+  const workspace = await api.get(GET_WORKSPACES_ROUTE, {
+    params: { workspaceId: workspaceId },
   });
-  const workspace = workspacesData.find(
-    (workspace) => workspace.id == workspaceId,
-  );
-
-  return workspace || null;
+  return workspace.data.workspacesDocuments || null;
 };
 
 export const fetchSpace = async (spaceId) => {
@@ -77,4 +82,17 @@ export const fetchUser = async (token) => {
 
   const list = listsData.find((list) => list.id == listId);
   return list;
+};
+
+export const authService = async (email, password) => {
+  try {
+    const response = await api.post(LOGIN_ROUTE, {
+      email: "email1@gmail.com",
+      password: "email1",
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

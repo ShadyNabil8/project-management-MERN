@@ -1,29 +1,39 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { fakeUsersData } from "../assets/data";
+import { Form, useNavigate } from "react-router-dom";
+import { authService } from "../api";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const userData = await fakeAuthService(username, password);
+      setLoading(true);
 
-    if (userData) {
-      login(userData);
-      navigate("/");
-    } else {
-      alert("Login failed");
+      const userData = await authService(username, password);
+
+      if (userData) {
+        login(userData);
+        navigate("/");
+      }
+    } catch (error) {
+    } finally {
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return <div>Loading ...</div>;
+  }
+
   return (
-    <form onSubmit={handleLogin}>
+    <Form onSubmit={handleLogin}>
       <input
         type="text"
         value={username}
@@ -37,20 +47,8 @@ const LoginPage = () => {
         placeholder="Password"
       />
       <button type="submit">Login</button>
-    </form>
+    </Form>
   );
-};
-
-const fakeAuthService = (username, password) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      if (username === "u" && password === "p") {
-        resolve({ user: fakeUsersData, token: "fake-jwt-token" });
-      } else {
-        resolve(null);
-      }
-    }, 1000);
-  });
 };
 
 export default LoginPage;

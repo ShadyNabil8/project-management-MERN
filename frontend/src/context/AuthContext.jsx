@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import MainLoading from "../components/MainLoading";
-import { fakeUsersData } from "../assets/data";
-
+import { removeToken, setToken } from "../utils/token";
+import { getUser } from "../api/index";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -11,16 +11,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          // validate token from server
-          await new Promise((resolve) => {
-            setTimeout(resolve, 2000);
-          });
-          setUser(fakeUsersData);
-        } else {
-          setUser(null);
-        }
+        const userData = await getUser();
+        setUser(userData);
       } catch (error) {
       } finally {
         setLoading(false);
@@ -31,12 +23,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setUser(userData.user);
-    localStorage.setItem("token", userData.token);
+    setToken(userData.token);
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("token");
+    removeToken();
   };
 
   const isAuthenticated = () => {

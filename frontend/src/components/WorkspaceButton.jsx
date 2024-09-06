@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspace } from "../api";
 import Thumbnail from "./Thumbnail";
+import { BASE_URL } from "../api/api";
 
 const WorkspaceButton = ({ onClick }) => {
   const { workspaceId } = useParams();
@@ -14,12 +15,12 @@ const WorkspaceButton = ({ onClick }) => {
 
   return (
     <div
-      className="flex max-w-[70%] items-center justify-between rounded-md p-1 hover:bg-gray-200"
+      className="flex w-[70%] items-center justify-between rounded-md p-1 hover:bg-gray-200"
       onClick={() => onClick()}
     >
       <div className="flex items-center">
-        <Thumbnail image={workspace?.image} size={6}/>
-        <span className="ml-3 line-clamp-1 break-all">{workspace?.title}</span>
+        <Thumbnail image={`${BASE_URL}/${workspace?.image}`} size={6}/>
+        <span className="ml-3 line-clamp-1 break-all">{workspace?.name}</span>
       </div>
       <IoIosArrowDown className="text-gray-600" />
     </div>

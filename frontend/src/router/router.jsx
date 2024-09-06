@@ -20,14 +20,13 @@ const router = createBrowserRouter([
     element: <IndexRoute />,
   },
   {
-    path: "/:workspaceId",
+    path: "/:workspaceId", // I treat this as index route because there is nothing without workspace
     element: <IndexRoute />,
   },
   {
     element: <ProtectedRoute />,
     children: [
       {
-        path: "/:workspaceId",
         element: <RootLayout />,
         children: [
           {

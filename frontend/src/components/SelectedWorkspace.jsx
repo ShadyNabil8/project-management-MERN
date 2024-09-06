@@ -4,7 +4,6 @@ import Workspace from "./Workspace";
 import { settingsImage, userImage } from "../assets/images";
 import { fetchWorkspace } from "../api";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import useFetchData from "../hooks/useFetchData";
 
 const options = [
