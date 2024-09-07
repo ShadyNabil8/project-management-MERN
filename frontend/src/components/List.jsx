@@ -10,9 +10,9 @@ const List = ({ list, space }) => {
       className="flex cursor-pointer items-center rounded-md p-2 hover:bg-gray-200"
     >
       <span className="shrink-0">
-        <img className="size-3" src={listImage}></img>
+        <img className="size-[11px]" src={listImage}></img>
       </span>
-      <span className="ml-2 text-gray-800">{list.name}</span>
+      <span className="ml-2 text-sm text-gray-800">{list.name}</span>
     </Link>
   );
 };

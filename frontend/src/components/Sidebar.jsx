@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { homeImage, inboxImage, dashboardImage } from "../assets/images";
 import SidebarNavigator from "./SidebarNavigator";
 import Spaces from "./Spaces";
@@ -9,7 +9,7 @@ const Sidebar = () => {
   const { workspaceId } = useParams();
 
   return (
-    <div className="h-full overflow-auto border-r bg-[#F7F8F9]">
+    <div className="h-full lg:overflow-auto border-r bg-[#F7F8F9]">
       <SidebarNavigator>
         <SidebarLink
           link={{ title: "Home", image: homeImage, to: `/${workspaceId}/home` }}

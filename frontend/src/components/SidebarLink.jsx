@@ -1,15 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Thumbnail from "./Thumbnail";
 
 const SidebarLink = ({ link }) => {
   return (
     <Link
       to={link.to}
-      className="flex cursor-pointer items-center rounded-md p-2 hover:bg-gray-200"
+      className="flex cursor-pointer items-center justify-center rounded-md p-2 hover:bg-gray-200"
     >
-      <Thumbnail image={link?.image} isRounded={false} />
-      <span className="ml-3 text-sm text-gray-800">{link.title}</span>
+      <span className="shrink-0">
+        <img className="size-[15px]" src={link?.image}></img>
+      </span>
+      <span className="ml-3 hidden text-sm text-gray-800 lg:block">
+        {link.title}
+      </span>
     </Link>
   );
 };

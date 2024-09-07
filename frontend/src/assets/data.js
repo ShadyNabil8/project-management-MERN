@@ -146,91 +146,33 @@ export const listsData = [
 export const spacesData = [
   {
     id: "RPA123",
-    name: "RPA",
+    name: "RPA space",
     image: rImage,
-    workspaceId: "1",
+    workspaceId: "66da9e55ff0d3c37e5b97514",
   },
   {
     id: "Frontend48123",
     name: "Frontend",
     image: fImage,
-    workspaceId: "2",
+    workspaceId: "66da9e55ff0d3c37e5b97515",
   },
   {
     id: "Backend154545",
     name: "Backend",
     image: bImage,
-    workspaceId: "2",
-    lists: [
-      {
-        id: "10",
-        name: "API Development",
-      },
-      {
-        id: "11",
-        name: "Database Management",
-      },
-      {
-        id: "12",
-        name: "Authentication",
-      },
-      {
-        id: "13",
-        name: "Middleware",
-      },
-      {
-        id: "14",
-        name: "Deployment",
-      },
-    ],
+    workspaceId: "66da9e55ff0d3c37e5b97515",
   },
   {
     id: "Campaigns75145",
     name: "Campaigns",
     image: cImage,
-    workspaceId: "3",
-    lists: [
-      {
-        id: "15",
-        name: "Social Media",
-      },
-      {
-        id: "16",
-        name: "Email Marketing",
-      },
-      {
-        id: "17",
-        name: "SEO",
-      },
-      {
-        id: "18",
-        name: "PPC Advertising",
-      },
-    ],
+    workspaceId: "66da9e55ff0d3c37e5b97516",
   },
   {
     id: "ContentCreation48546",
     name: "Content Creation",
     image: cImage,
-    workspaceId: "3",
-    lists: [
-      {
-        id: "19",
-        name: "Blog Posts",
-      },
-      {
-        id: "20",
-        name: "Videos",
-      },
-      {
-        id: "21",
-        name: "Infographics",
-      },
-      {
-        id: "22",
-        name: "White Papers",
-      },
-    ],
+    workspaceId: "66da9e55ff0d3c37e5b97516",
   },
 ];
 

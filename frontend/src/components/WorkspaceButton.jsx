@@ -3,7 +3,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspace } from "../api";
-import Thumbnail from "./Thumbnail";
 import { BASE_URL } from "../api/api";
 
 const WorkspaceButton = ({ onClick }) => {
@@ -15,14 +14,21 @@ const WorkspaceButton = ({ onClick }) => {
 
   return (
     <div
-      className="flex w-[70%] items-center justify-between rounded-md p-1 hover:bg-gray-200"
+      className="flex h-full w-full items-center justify-center gap-[2px] hover:bg-gray-200 lg:w-[80%] lg:justify-between lg:gap-0 lg:rounded-md lg:p-1"
       onClick={() => onClick()}
     >
-      <div className="flex items-center">
-        <Thumbnail image={`${BASE_URL}/${workspace?.image}`} size={6}/>
-        <span className="ml-3 line-clamp-1 break-all">{workspace?.name}</span>
+      <div className="flex h-full items-center justify-center">
+        <span className="shrink-0">
+          <img
+            className="size-5 rounded-[4px]"
+            src={`${BASE_URL}/${workspace?.image}`}
+          ></img>
+        </span>
+        <div className="hidden h-full lg:block">
+          <span className="ml-3 line-clamp-1 break-all">{workspace?.name}</span>
+        </div>
       </div>
-      <IoIosArrowDown className="text-gray-600" />
+      <IoIosArrowDown className="text-[10px] text-gray-600 lg:text-base" />
     </div>
   );
 };

@@ -11,16 +11,15 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: " translateY(-90px)" },
         },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
         bounce: "bounce 1s ease-in-out infinite",
+        fadeIn: "fadeIn 0.2s ease-in-out",
       },
-      gridTemplateColumns: {
-        55: "300px auto",
-      },
-      gridTemplateRows: {
-        '55': 'auto 1fr',
-      }
     },
   },
   plugins: [require("tailwindcss-animation-delay")],

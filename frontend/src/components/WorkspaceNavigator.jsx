@@ -8,6 +8,7 @@ import { addImage } from "../assets/images";
 import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspaces } from "../api";
+
 const WorkspaceNavigator = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { workspaceId } = useParams();
@@ -21,7 +22,7 @@ const WorkspaceNavigator = () => {
   };
 
   return (
-    <div className="relative flex items-center border-b border-r bg-[#F7F8F9] p-2">
+    <div className="flex h-full w-full items-center justify-center border-b border-r bg-[#F7F8F9] lg:justify-between lg:p-2">
       <WorkspaceButton onClick={toggleList}></WorkspaceButton>
       <div
         className={`absolute left-3 top-11 mt-3 min-w-64 rounded-md bg-white p-2 shadow-3xl ${isVisible ? "block" : "hidden"}`}
