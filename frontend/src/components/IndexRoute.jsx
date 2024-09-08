@@ -17,8 +17,6 @@ const IndexRoute = () => {
       try {
         setLoading(true);
         const response = await fetchWorkspaces();
-        console.log('HERE 2');
-        console.log('HERE 3', response[0]._id);
         setInitialWorkspaceId(response[0]._id);
       } catch (error) {
       } finally {
@@ -26,13 +24,9 @@ const IndexRoute = () => {
       }
     };
     if (user) {
-      console.log('HERE 1');
-      
       if (!params.hasOwnProperty("workspaceId")) {
-        console.log('HERE 5');
         getUserDefaultWorkspace();
       } else {
-        console.log('HERE 4');
         setInitialWorkspaceId(params.workspaceId);
         setLoading(false);
       }

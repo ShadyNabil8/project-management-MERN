@@ -8,6 +8,7 @@ import { addImage } from "../assets/images";
 import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspaces } from "../api";
+import { IoAdd } from "react-icons/io5";
 
 const WorkspaceNavigator = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,7 +26,7 @@ const WorkspaceNavigator = () => {
     <div className="flex h-full w-full items-center justify-center border-b border-r bg-[#F7F8F9] lg:justify-between lg:p-2">
       <WorkspaceButton onClick={toggleList}></WorkspaceButton>
       <div
-        className={`absolute z-10 left-3 top-11 mt-3 min-w-64 rounded-md bg-white p-2 shadow-3xl ${isVisible ? "block" : "hidden"}`}
+        className={`absolute left-3 top-11 z-10 mt-3 min-w-64 rounded-md bg-white p-2 shadow-3xl ${isVisible ? "block" : "hidden"}`}
       >
         <SelectedWorkspace></SelectedWorkspace>
         <WorkspaceList>
@@ -39,7 +40,7 @@ const WorkspaceNavigator = () => {
             ) : null,
           )}
         </WorkspaceList>
-        <Option option={{ image: addImage, title: "New Workspace" }}></Option>
+        <Option option={{ image: <IoAdd />, title: "New Workspace" }}></Option>
       </div>
     </div>
   );
