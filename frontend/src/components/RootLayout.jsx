@@ -22,7 +22,7 @@ const RootLayout = () => {
 
   return (
     <HeaderProvider>
-      {/* {(isSpacesFetching > 0 || isListsFetching > 0) && <MainLoading />} */}
+      {(isSpacesFetching > 0 || isListsFetching > 0) && <MainLoading />}
       <div className="grid h-screen w-screen grid-cols-[50px_auto] grid-rows-[40px_50px_auto] lg:grid-cols-[14%_auto]">
         <div className="col-span-2">
           <Header />
