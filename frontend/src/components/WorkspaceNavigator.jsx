@@ -5,7 +5,7 @@ import WorkspaceList from "./WorkspaceList";
 import Workspace from "./Workspace";
 import Option from "./Option";
 import { addImage } from "../assets/images";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspaces } from "../api";
 import { IoAdd } from "react-icons/io5";
@@ -17,6 +17,8 @@ const WorkspaceNavigator = () => {
     ["workspaces"],
     fetchWorkspaces,
   );
+
+  const navigate = useNavigate();
 
   const toggleList = () => {
     setIsVisible((prev) => !prev);
@@ -40,7 +42,13 @@ const WorkspaceNavigator = () => {
             ) : null,
           )}
         </WorkspaceList>
-        <Option option={{ image: <IoAdd />, title: "New Workspace" }}></Option>
+        <Option
+          option={{
+            image: <IoAdd />,
+            title: "New Workspace",
+            action: () => navigate("/team-setup"),
+          }}
+        ></Option>
       </div>
     </div>
   );

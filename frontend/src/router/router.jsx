@@ -54,7 +54,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/create-workspace",
+    path: "/team-setup",
     element: <CreateWorkspace />,
   },
 ]);
