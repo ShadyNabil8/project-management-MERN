@@ -17,6 +17,8 @@ const IndexRoute = () => {
       try {
         setLoading(true);
         const response = await fetchWorkspaces();
+        console.log(response);
+        
         setInitialWorkspaceId(response[0]._id);
       } catch (error) {
       } finally {

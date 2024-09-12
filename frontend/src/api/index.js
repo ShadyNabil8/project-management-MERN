@@ -1,8 +1,9 @@
 import { listsData, spacesData, workspacesData } from "../assets/data";
-import api, { LOGIN_ROUTE, GET_USER_ROUTE, GET_WORKSPACES_ROUTE } from "./api";
+import api, { LOGIN_ROUTE, GET_USER_ROUTE, GET_WORKSPACES_ROUTE, REFRESH_TOKEN_ROUTE } from "./api";
 
 export const getUser = async function () {
   try {
+    // This api should return an access token and user data.
     const response = await api.get(GET_USER_ROUTE);
     return response.data;
   } catch (error) {
@@ -94,5 +95,15 @@ export const authService = async (email, password) => {
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const refreshToken = async () => {
+  try {
+    const response = await api.post(REFRESH_TOKEN_ROUTE);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };

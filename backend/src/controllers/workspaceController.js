@@ -14,7 +14,7 @@ const getWorkspaces = async function (req, res, next) {
       workspacesDocuments = await workspaceModel.findById(workspaceId);
     } else {
       workspacesDocuments = await workspaceModel.find({
-        members: { $in: [req.user.userId] },
+        members: { $in: [req.user._id] },
       });
     }
 

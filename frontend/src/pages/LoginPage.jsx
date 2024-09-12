@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Form, useNavigate, Link } from "react-router-dom";
-import { authService } from "../api";
 import { MdOutlineEmail } from "react-icons/md";
 import { SlLock } from "react-icons/sl";
 import { FcGoogle } from "react-icons/fc";
+import api, { LOGIN_ROUTE } from "../api/api";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -18,13 +18,18 @@ const LoginPage = () => {
 
       setLoading(true);
 
-      const userData = await authService(loginData.email, loginData.password);
+      // This response contins the access token and user data.
+      const response = await api.post(LOGIN_ROUTE, {
+        email: "email1@gmail.com",
+        password: "email1",
+      });
 
-      if (userData) {
-        login(userData);
-        navigate("/");
-      }
+      // login function inside the AuthContext is ised to set the auth state with token and user data.
+      login(response.data);
+
+      navigate("/");
     } catch (error) {
+      throw error;
     } finally {
       setLoading(false);
     }

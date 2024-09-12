@@ -1,38 +1,116 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import MainLoading from "../components/MainLoading";
-import { removeToken, setToken } from "../utils/token";
-import { getUser } from "../api/index";
-const AuthContext = createContext();
+import api, { GET_USER_ROUTE, REFRESH_TOKEN_ROUTE } from "../api/api";
+
+const AuthContext = createContext(undefined);
+
+export const useAuth = () => {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error("useAuth mest be used within an AuthProvider");
+  }
+
+  return authContext;
+};
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const validateToken = async () => {
+    const fetchMe = async () => {
       try {
-        const userData = await getUser();
-        setUser(userData);
+        // Response contains user data.
+        const response = await api.get(GET_USER_ROUTE);
+        setUser(response.data);
       } catch (error) {
       } finally {
         setLoading(false);
       }
     };
-    validateToken();
+    fetchMe();
   }, []);
 
-  const login = (userData) => {
-    setUser(userData.user);
-    setToken(userData.token);
+  // To refresh the token sent within each request each time the token in refreshed.
+  useLayoutEffect(() => {
+    const authInterceptor = api.interceptors.request.use((config) => {
+      config.headers.Authorization =
+        !config._retry && token
+          ? `Bearer ${token}`
+          : config.headers.Authorization;
+      return config;
+    });
+
+    return () => {
+      api.interceptors.request.eject(authInterceptor);
+    };
+  }, [token]);
+
+  useLayoutEffect(() => {
+    const responseInterceptor = api.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
+        if (
+          error.response.status === 401 &&
+          error.response.data.message.startsWith("Unauthorized")
+        ) {
+          try {
+            // Refresh the access token in server.
+            const response = await api.post(REFRESH_TOKEN_ROUTE);
+
+            setToken(response.data.accessToken);
+
+            originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+            originalRequest._retry = true;
+
+            // Call the original request.
+            return api(originalRequest);
+          } catch (error) {
+            setToken(null);
+          }
+        }
+
+        return Promise.reject(error);
+      },
+    );
+
+    return () => {
+      api.interceptors.request.eject(responseInterceptor);
+    };
+  }, [token]);
+
+  const login = (response) => {
+    setUser(response.user);
+    setToken(response.accessToken);
   };
+
+  useEffect(() => {
+    console.log("user: ", user);
+    console.log("token", token);
+  }, [user, token]);
 
   const logout = () => {
-    setUser(null);
-    removeToken();
+    // Some like this in backend
+    // res.clearCookie('refreshToken', {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: 'strict',
+    // });
   };
 
+  // Way for different components to get the auth state.
   const isAuthenticated = () => {
-    return user;
+    return token;
   };
 
   return (
@@ -41,5 +119,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

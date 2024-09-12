@@ -1,17 +1,24 @@
-const { verifyToken } = require("../utils/token");
-const { CustomError } = require("./errorHandler");
+const { verifyToken, ACCESS_TOKEN_SECRET } = require("../utils/token");
 
 const verifyUser = function (req, res, next) {
   try {
     if (!req.headers.authorization) {
-      throw new CustomError("No token provided", 400);
+      return res
+        .status(401)
+        .json({ message: "Unauthorized, No token provided" });
     }
+
     const token = req.headers.authorization.split(" ")[1];
-    const decoded = verifyToken(token);
-    req.user = decoded;
-    return next();
+    verifyToken(token, ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) {
+        return res.status(401).json({ message: "Unauthorized, Invalid token" });
+      }
+
+      req.user = user; // Attach user data to request object
+      next();
+    });
   } catch (error) {
-    throw new CustomError("Invalid token", 401);
+    next(error);
   }
 };
 

@@ -1,9 +1,11 @@
+require("dotenv").config();
 const { CustomError } = require("../middlewares/errorHandler");
 const userModel = require("../models/userModel");
 const workspaceModel = require("../models/workspaceModel");
 const { hashPassword, comparePassword } = require("../utils/password");
-const { generateToken } = require("../utils/token");
+const { generateAccessToken, generateRefreshToken } = require("../utils/token");
 const { delay } = require("../utils/utils");
+const { serialize } = require("cookie");
 
 const findUser = async function (query) {
   return await userModel.findOne(query);
@@ -32,13 +34,24 @@ const login = async function (req, res, next) {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    const token = generateToken(userDocument._id);
+    const accessToken = generateAccessToken(userDocument);
+    const refreshToken = generateRefreshToken(userDocument);
 
-    // Sanitize the user document to remove sensitive fields
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+      path: "/",
+    });
 
     return res.status(200).json({
-      token,
-      user: userDocument,
+      accessToken,
+      user: {
+        fullName: userDocument.fullName,
+        email: userDocument.email,
+        id: userDocument._id,
+      },
     });
   } catch (error) {
     return next(error);
@@ -49,8 +62,8 @@ const getUser = async function (req, res, next) {
   try {
     await delay(1000);
 
-    const { userId } = req.user;
-    const userDocument = await userModel.findById(userId);
+    const { _id } = req.user;
+    const userDocument = await userModel.findById(_id);
 
     if (!userDocument) {
       throw new CustomError("User not found", 404);
