@@ -14,6 +14,8 @@ import f from "./images/f.jpeg";
 import b from "./images/b.jpeg";
 import m from "./images/m.jpeg";
 import arrowdown from "./images/arrowdown.png";
+import email from "./images/email.png";
+
 
 export const developerImage = developer;
 export const homeImage = home;
@@ -31,4 +33,5 @@ export const cImage = c;
 export const arrowdownImage = arrowdown;
 export const listImage = list;
 export const menuImage = menu;
+export const emailImage = email;
 

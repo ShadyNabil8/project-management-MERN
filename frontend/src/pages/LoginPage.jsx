@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Form, useNavigate, Link } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { TiWarning } from "react-icons/ti";
+import api, { LOGIN_ROUTE } from "../api/api";
+import { getEmailError, getPasswordError } from "../utils/validation";
+import FormField from "../components/FormField";
+import ButtonLoading from "../components/ButtonLoading";
 import { MdOutlineEmail } from "react-icons/md";
 import { SlLock } from "react-icons/sl";
-import { FcGoogle } from "react-icons/fc";
-import api, { LOGIN_ROUTE } from "../api/api";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({
+    email: null,
+    password: null,
+  });
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -18,16 +26,28 @@ const LoginPage = () => {
 
       setLoading(true);
 
-      // This response contins the access token and user data.
-      const response = await api.post(LOGIN_ROUTE, {
-        email: "email1@gmail.com",
-        password: "email1",
-      });
+      const errorInEmail = getEmailError(loginData.email);
+      const errorInPassword = getPasswordError(loginData.password);
 
-      // login function inside the AuthContext is ised to set the auth state with token and user data.
-      login(response.data);
+      setErrors((prev) => ({
+        email: errorInEmail,
+        password: errorInPassword,
+      }));
 
-      navigate("/");
+      if (/* !errorInEmail && !errorInPassword */ true) {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 3000);
+        });
+
+        // // This response contins the access token and user data.
+        // const response = await api.post(LOGIN_ROUTE, {
+        //   email: "email1@gmail.com",
+        //   password: "email1",
+        // });
+        // // login function inside the AuthContext is ised to set the auth state with token and user data.
+        // login(response.data);
+        // navigate("/");
+      }
     } catch (error) {
       throw error;
     } finally {
@@ -35,15 +55,11 @@ const LoginPage = () => {
     }
   };
 
-  if (loading) {
-    return <div>Loading ...</div>;
-  }
-
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[#FAFBFC]">
       <div className="absolute -bottom-[55%] -left-20 -right-60 h-screen -rotate-[10deg] rounded-full bg-gradient-to-l from-[#FC466B] to-[#3F5EFB]"></div>
       <Form
-        className="absolute -right-1/2 left-1/2 flex h-[460px] w-[347px] -translate-x-1/2 translate-y-1/2 flex-col items-center rounded-lg bg-white px-[22px] py-10 shadow-3xl md:w-[480px] md:px-16"
+        className="absolute top-1/2 left-1/2 flex min-h-[460px] w-[347px] -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-lg bg-white px-[22px] py-10 shadow-3xl md:w-[480px] md:px-16"
         onSubmit={handleLogin}
       >
         <p className="text-3xl font-bold text-gray-800">Welcome back!</p>
@@ -61,46 +77,44 @@ const LoginPage = () => {
           <span className="text-sm text-[#c7c7c7]">OR</span>
           <hr className="h-[1px] w-1/2 border-t border-[#ddd]"></hr>
         </div>
-        <label className="mt-3 self-start text-[12px] text-gray-900">
-          Work Email
-        </label>
-        <div className="flex h-[40px] w-full items-center rounded-md border px-2">
-          <MdOutlineEmail className="text-2xl text-[#c7c7c7]" />
-          <input
-            className="w-full bg-transparent p-3 text-sm focus:outline-none"
-            placeholder="Enter your work email"
-            type="text"
+
+        <div className="mt-3 flex w-full flex-col gap-6">
+          <FormField
+            type={"text"}
+            label={"Work Email"}
+            error={errors.email}
+            icon={<MdOutlineEmail />}
             value={loginData.email}
-            onChange={(e) =>
+            placeholder={"Enter your work email"}
+            handleOnChange={(e) =>
               setLoginData((prev) => ({ ...prev, email: e.target.value }))
             }
-          ></input>
-        </div>
-
-        <label className="mt-4 self-start text-[12px] text-gray-900">
-          Password
-        </label>
-        <div className="flex h-[40px] w-full items-center rounded-md border px-2">
-          <SlLock className="text-xl text-[#c7c7c7]" />
-          <input
-            className="w-full bg-transparent p-3 text-sm focus:outline-none"
-            placeholder="Enter Password"
-            type="password"
+          />
+          <FormField
+            type={"password"}
+            label={"Password"}
+            error={errors.password}
+            icon={<SlLock />}
             value={loginData.password}
-            onChange={(e) =>
+            placeholder={"Enter password"}
+            handleOnChange={(e) =>
               setLoginData((prev) => ({ ...prev, password: e.target.value }))
             }
-          ></input>
+          />
         </div>
+
         <button
-          className="mt-7 h-[50px] w-full rounded-lg bg-[#5F55EE] font-medium text-white transition-colors hover:bg-[#544DC9]"
+          className="mt-9 flex h-[50px] w-full shrink-0 items-center justify-center rounded-lg bg-[#5F55EE] font-medium text-white transition-colors hover:bg-[#544DC9]"
           type="submit"
         >
-          Log in
+          {loading ? <ButtonLoading /> : "Log in"}
         </button>
         <div className="absolute -bottom-12 text-sm text-white">
           <span className="text-sm text-white">Don't have an account? </span>
-          <Link className="border-b border-b-[#bababa] transition-colors hover:border-b-white">
+          <Link
+            to="/signup"
+            className="border-b border-b-[#bababa] transition-colors hover:border-b-white"
+          >
             Sign up
           </Link>
         </div>
@@ -110,21 +124,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-{
-  /* <Form onSubmit={handleLogin}>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <button type="submit">Login</button>
-    </Form> */
-}

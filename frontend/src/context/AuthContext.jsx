@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(true);
 
+  // Keep in mind that this useEffict will not run before useLayoutEffect
   useEffect(() => {
     const fetchMe = async () => {
       try {
@@ -68,6 +69,7 @@ export const AuthProvider = ({ children }) => {
             // Refresh the access token in server.
             const response = await api.post(REFRESH_TOKEN_ROUTE);
 
+            // After this useLayoutEffect runs, fetchMe runs and sets the user.
             setToken(response.data.accessToken);
 
             originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
@@ -110,7 +112,7 @@ export const AuthProvider = ({ children }) => {
 
   // Way for different components to get the auth state.
   const isAuthenticated = () => {
-    return token;
+    return { token, user };
   };
 
   return (

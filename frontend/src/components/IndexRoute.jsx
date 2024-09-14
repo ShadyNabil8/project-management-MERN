@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { fetchWorkspaces } from "../api";
 import MainLoading from "./MainLoading";
 
@@ -8,27 +8,31 @@ const IndexRoute = () => {
   const [loading, setLoading] = useState(true);
   const [initialWorkspaceId, setInitialWorkspaceId] = useState(null);
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const params = useParams();
 
-  const user = isAuthenticated();
+  const { token, user } = isAuthenticated();
 
   useEffect(() => {
     const getUserDefaultWorkspace = async () => {
       try {
         setLoading(true);
         const response = await fetchWorkspaces();
-        console.log(response);
-        
         setInitialWorkspaceId(response[0]._id);
       } catch (error) {
       } finally {
         setLoading(false);
       }
     };
-    if (user) {
+    if (token && user) {
+      if (!user.isVerified) {
+        navigate("/signup/validate-email");
+      }
+
       if (!params.hasOwnProperty("workspaceId")) {
         getUserDefaultWorkspace();
       } else {
+        // I need to check if the user is a member of this ws or not!
         setInitialWorkspaceId(params.workspaceId);
         setLoading(false);
       }
@@ -41,7 +45,7 @@ const IndexRoute = () => {
     return <MainLoading />;
   }
 
-  return user ? (
+  return token ? (
     <Navigate to={`/${initialWorkspaceId}/home`} />
   ) : (
     <Navigate to="/login" />

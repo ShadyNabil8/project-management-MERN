@@ -9,11 +9,21 @@ import LoginPage from "../pages/LoginPage";
 import IndexRoute from "../components/IndexRoute";
 import ProtectedRoute from "../components/ProtectedRoute";
 import CreateWorkspace from "../pages/CreateWorkspace";
+import SignupPage from "../pages/SignupPage";
+import ValidateEmailPage from "../pages/ValidateEmailPage";
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage></LoginPage>,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage/>,
+  },
+  {
+    path: "/signup/validate-email",
+    element: <ValidateEmailPage/>,
   },
   {
     path: "/",

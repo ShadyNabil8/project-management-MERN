@@ -7,7 +7,7 @@ export default {
         "3xl": "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
       },
       backgroundImage: {
-        "layout": "url('/src/assets/images/setupbg.png')",
+        layout: "url('/src/assets/images/setupbg.png')",
       },
       keyframes: {
         bounce: {
@@ -18,10 +18,15 @@ export default {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        grow: {
+          "0%, 100%": { transform: "scale(0)" },
+          "50%": { transform: "scale(1)" },
+        },
       },
       animation: {
         bounce: "bounce 1s ease-in-out infinite",
         fadeIn: "fadeIn 0.2s ease-in-out",
+        grow: "grow 1s infinite",
       },
     },
   },
