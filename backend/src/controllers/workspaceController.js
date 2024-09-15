@@ -1,5 +1,4 @@
 const workspaceModel = require("../models/workspaceModel");
-const { CustomError } = require("../middlewares/errorHandler");
 const { delay } = require("../utils/utils");
 
 const getWorkspaces = async function (req, res, next) {
@@ -18,12 +17,8 @@ const getWorkspaces = async function (req, res, next) {
       });
     }
 
-    if (!workspacesDocuments) {
-      throw new CustomError("Workspace not found", 404);
-    }
-
     return res.status(200).json({
-      workspacesDocuments,
+      workspacesDocuments: workspacesDocuments || [],
     });
   } catch (error) {
     return next(error);

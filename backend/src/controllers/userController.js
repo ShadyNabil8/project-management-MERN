@@ -97,7 +97,7 @@ const searchUser = async function (req, res, next) {
 
     return res.status(200).json(userDocument.email);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -148,7 +148,7 @@ const signup = [
         path: "/",
       });
 
-      const verificationCode = crypto.randomBytes(6).toString("hex");
+      const verificationCode = crypto.randomBytes(3).toString("hex");
       const verificationExpires = Date.now() + 3600000; // 1 Hour
 
       const verificationRecord = new verificationCodeModel({
@@ -171,7 +171,7 @@ const signup = [
         },
       });
     } catch (error) {
-      next(error);
+      return next(error);
     }
   },
 ];
@@ -199,22 +199,65 @@ const verifyEmail = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
+    if (userDocument.isVerified) {
+      return res.status(400).json({ message: "User is already verified" });
+    }
+
     userDocument.isVerified = true;
 
     await userDocument.save();
 
-    await verificationCodeModel.deleteOne({
-      _id: verificationCodeDocument._id,
+    await verificationCodeModel.deleteMany({ userId: userDocument._id });
+
+    return res.status(200).json({
+      message: "Email verified successfully!",
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const resendVerificationCode = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    const userDocument = await userModel.findOne({ email });
+    if (!userDocument) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (userDocument.isVerified) {
+      return res.status(400).json({ message: "User is already verified" });
+    }
+
+    await verificationCodeModel.deleteMany({ userId: userDocument._id });
+
+    const verificationCode = crypto.randomBytes(3).toString("hex");
+    const verificationExpires = Date.now() + 3600000; // 1 Hour
+
+    const verificationRecord = new verificationCodeModel({
+      userId: userDocument._id,
+      verificationCode: verificationCode,
+      expiresAt: verificationExpires,
     });
 
-    // return res.status(200).json({
-    //   message: "Email verified successfully!",
-    // });
+    await verificationRecord.save();
 
-    return res.redirect("http://localhost:5173/");
+    await sendVerificationCode(userDocument.email, verificationCode);
+
+    return res
+      .status(200)
+      .json({ message: "Verification code has been resent" });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { login, getUser, searchUser, signup, verifyEmail };
+module.exports = {
+  login,
+  getUser,
+  searchUser,
+  signup,
+  verifyEmail,
+  resendVerificationCode,
+};

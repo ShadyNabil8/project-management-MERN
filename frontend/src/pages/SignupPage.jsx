@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
@@ -30,7 +30,7 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     try {
       e.preventDefault();
 
@@ -52,17 +52,14 @@ const SignupPage = () => {
           email: signupData.email,
           password: signupData.password,
         });
-        console.log(response);
 
         // login function inside the AuthContext is ised to set the auth state with token and user data.
         login(response.data);
-        navigate("/signup/validate-email");
+
+        navigate("/verify-email");
       }
     } catch (error) {
-      console.log(error);
-
       toast.error(error.response.data.message);
-      // throw error;
     } finally {
       setLoading(false);
     }
@@ -72,7 +69,7 @@ const SignupPage = () => {
       <div className="absolute -bottom-[55%] -left-20 -right-60 h-screen -rotate-[10deg] rounded-full bg-gradient-to-l from-[#FC466B] to-[#3F5EFB]"></div>
       <Form
         className="absolute left-1/2 top-1/2 flex min-h-[460px] w-[347px] -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-lg bg-white px-[22px] py-10 shadow-3xl md:w-[480px] md:px-16"
-        onSubmit={handleLogin}
+        onSubmit={handleSignup}
       >
         <p className="text-3xl font-bold text-gray-800">Seconds to sign up! </p>
 

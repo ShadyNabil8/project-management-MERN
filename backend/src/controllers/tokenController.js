@@ -39,7 +39,7 @@ const refreshToken = async (req, res) => {
       });
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 module.exports = { refreshToken };

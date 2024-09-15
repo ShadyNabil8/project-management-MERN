@@ -19,11 +19,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <SignupPage/>,
-  },
-  {
-    path: "/signup/validate-email",
-    element: <ValidateEmailPage/>,
+    element: <SignupPage />,
   },
   {
     path: "/",
@@ -61,11 +57,15 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "/workspace-setup",
+        element: <CreateWorkspace />,
+      },
+      {
+        path: "/verify-email",
+        element: <ValidateEmailPage />,
+      },
     ],
-  },
-  {
-    path: "/team-setup",
-    element: <CreateWorkspace />,
   },
 ]);
 

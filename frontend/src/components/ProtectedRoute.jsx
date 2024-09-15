@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
   const { isAuthenticated } = useAuth();
   const { token, user } = isAuthenticated();
 
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  return token && user ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
