@@ -1,22 +1,67 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ButtonLoading from "../components/ButtonLoading";
 import { ReactMultiEmail, isEmail } from "react-multi-email";
 import "react-multi-email/dist/style.css";
+import api from "../api/api";
+import InputError from "../components/InputError";
+import useNotifier from "../hooks/useNotifier";
 
 const MAX_STAGE = 2;
 
 const CreateWorkspace = () => {
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const [stage, setStage] = useState(1);
   const [workspaceData, setWorkspaceData] = useState({
     invitedMembers: [],
     workspaceName: `${user.fullName}'s workspace`,
   });
-  const [focused, setFocused] = useState(false);
+  const [errors, setErrors] = useState({
+    workspaceName: null,
+  });
+
+  const navigate = useNavigate();
+  const notify = useNotifier();
+
+  const handleCreateWorkspace = async () => {
+    setLoading(true);
+    try {
+      const response = await api.post("/workspace/create", {
+        name: workspaceData.workspaceName,
+        invitedMembers: workspaceData.invitedMembers,
+      });
+      navigate(`/${response.data.workspaceId}/home`);
+    } catch (error) {
+      notify.error(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleNextStage = (e) => {
     if (stage < MAX_STAGE) {
-      setStage((prev) => prev + 1);
+      let isError = false;
+      if (stage === 1) {
+        if (!workspaceData.workspaceName) {
+          isError = true;
+          setErrors((prev) => ({
+            ...prev,
+            workspaceName: "Workspace name is required!",
+          }));
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            workspaceName: null,
+          }));
+        }
+      }
+      if (!isError) {
+        setStage((prev) => prev + 1);
+      }
+    } else {
+      handleCreateWorkspace();
     }
   };
 
@@ -32,10 +77,6 @@ const CreateWorkspace = () => {
       workspaceName: e.target.value,
     }));
   };
-
-  useEffect(() => {
-    console.log(workspaceData.invitedMembers);
-  }, [workspaceData.invitedMembers]);
 
   return (
     <div className="relative h-screen w-screen">
@@ -61,17 +102,21 @@ const CreateWorkspace = () => {
             </div>
 
             {stage === 1 ? (
-              <>
+              <div className="relative">
                 <input
+                  style={errors.workspaceName ? { borderColor: "#dc4a3f" } : {}}
                   value={workspaceData.workspaceName}
                   onChange={onWorkspaceNameChange}
                   className="h-[45px] w-[250px] self-center rounded-md border border-gray-300 p-4 focus:outline-none"
                 ></input>
-              </>
+                {errors.workspaceName && (
+                  <InputError error={errors.workspaceName} />
+                )}
+              </div>
             ) : (
               <div className="w-[350px]">
                 <ReactMultiEmail
-                  placeholder="Input your email"
+                  placeholder="Enter members emails"
                   emails={workspaceData.invitedMembers}
                   onChange={(_emails) => {
                     setWorkspaceData((prev) => ({
@@ -80,8 +125,6 @@ const CreateWorkspace = () => {
                     }));
                   }}
                   autoFocus={true}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
                   getLabel={(email, index, removeEmail) => {
                     return (
                       <div data-tag key={index}>
@@ -99,7 +142,7 @@ const CreateWorkspace = () => {
               </div>
             )}
             {stage === 1 && (
-              <span className="mt-2 text-sm text-gray-500">
+              <span className="mt-6 text-sm text-gray-500">
                 Try the name of your company or organization.
               </span>
             )}
@@ -119,10 +162,17 @@ const CreateWorkspace = () => {
               Back
             </button>
             <button
+              style={loading ? { pointerEvents: "none" } : {}}
               className="rounded-lg bg-blue-500 px-8 py-3 text-white"
               onClick={handleNextStage}
             >
-              {stage === MAX_STAGE ? "Finish" : "Next"}
+              {loading ? (
+                <ButtonLoading />
+              ) : stage === MAX_STAGE ? (
+                "Finish"
+              ) : (
+                "Next"
+              )}
             </button>
           </div>
         </div>

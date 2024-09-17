@@ -26,7 +26,7 @@ const userRouter = require("./routes/userRoute");
 app.use("/user", userRouter);
 
 const workspaceRouter = require("./routes/workspaceRoute");
-app.use("/workspaces", workspaceRouter);
+app.use("/workspace", workspaceRouter);
 
 app.use("/images", express.static("public/images"));
 

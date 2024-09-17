@@ -14,15 +14,6 @@ const IndexRoute = () => {
   const { token, user } = isAuthenticated();
 
   useEffect(() => {
-    const getUserWorkspaces = async () => {
-      try {
-        const response = await api.get("/workspaces");
-        return response.data.workspacesDocuments;
-      } catch (error) {
-        console.log(error);
-      } finally {
-      }
-    };
     const suitableRoute = async () => {
       try {
         setLoading(true);
@@ -31,8 +22,8 @@ const IndexRoute = () => {
             return navigate("/verify-email");
           }
 
-          const userWorkspaces = await getUserWorkspaces();
-          if (!userWorkspaces.length) {
+          const response = await api.get("/workspace");
+          if (!response.data.workspacesDocuments.length) {
             return navigate("/workspace-setup");
           }
 
@@ -50,7 +41,6 @@ const IndexRoute = () => {
         setLoading(false);
       }
     };
-
     suitableRoute();
   });
 

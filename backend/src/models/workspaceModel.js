@@ -5,6 +5,9 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -16,6 +19,14 @@ const schema = new mongoose.Schema({
       ref: "User",
     },
   ],
+});
+
+schema.pre("save", function (next) {
+  if (!this.image) {
+    const firstChar = this.name.charAt(0).toUpperCase();
+    this.image = `${firstChar}.jpeg`;
+  }
+  next();
 });
 
 module.exports = mongoose.model("Workspace", schema);

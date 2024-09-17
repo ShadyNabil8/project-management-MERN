@@ -3,7 +3,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspace } from "../api";
-import { BASE_URL } from "../api/api";
+import { IMAGES_ROUTE } from "../api/api";
 
 const WorkspaceButton = ({ onClick }) => {
   const { workspaceId } = useParams();
@@ -21,7 +21,7 @@ const WorkspaceButton = ({ onClick }) => {
         <span className="shrink-0">
           <img
             className="size-5 rounded-[4px]"
-            src={`${BASE_URL}/${workspace?.image}`}
+            src={`${IMAGES_ROUTE}/${workspace?.image}`}
           ></img>
         </span>
         <div className="hidden h-full lg:block">

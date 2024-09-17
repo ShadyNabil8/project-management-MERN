@@ -30,7 +30,7 @@ const ValidateEmailPage = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "Something went wrong!");
+      toast.error(error.response?.data?.message || "Something went wrong in email verification!");
       throw error;
     }
   };

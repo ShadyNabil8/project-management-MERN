@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BASE_URL } from "../api/api";
+import { IMAGES_ROUTE } from "../api/api";
 
 const Workspace = ({ workspace, toggleList }) => {
   return (
@@ -13,7 +13,7 @@ const Workspace = ({ workspace, toggleList }) => {
       <span className="shrink-0">
         <img
           className="size-7 rounded-md"
-          src={`${BASE_URL}/${workspace.image}`}
+          src={`${IMAGES_ROUTE}/${workspace.image}`}
         ></img>
       </span>
       <div className="ml-4 flex flex-col justify-center">

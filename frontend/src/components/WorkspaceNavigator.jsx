@@ -46,7 +46,7 @@ const WorkspaceNavigator = () => {
           option={{
             image: <IoAdd />,
             title: "New Workspace",
-            action: () => navigate("/team-setup"),
+            action: () => navigate("/workspace-setup"),
           }}
         ></Option>
       </div>
