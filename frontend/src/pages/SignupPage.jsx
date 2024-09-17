@@ -111,6 +111,7 @@ const SignupPage = () => {
         </div>
 
         <button
+          style={loading ? { pointerEvents: "none" } : {}}
           className="mt-9 flex h-[50px] w-full shrink-0 items-center justify-center rounded-lg bg-[#5F55EE] font-medium text-white transition-colors hover:bg-[#544DC9]"
           type="submit"
         >

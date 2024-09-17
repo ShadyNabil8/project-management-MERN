@@ -59,7 +59,7 @@ const LoginPage = () => {
     <div className="relative h-screen w-screen overflow-hidden bg-[#FAFBFC]">
       <div className="absolute -bottom-[55%] -left-20 -right-60 h-screen -rotate-[10deg] rounded-full bg-gradient-to-l from-[#FC466B] to-[#3F5EFB]"></div>
       <Form
-        className="absolute top-1/2 left-1/2 flex min-h-[460px] w-[347px] -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-lg bg-white px-[22px] py-10 shadow-3xl md:w-[480px] md:px-16"
+        className="absolute left-1/2 top-1/2 flex min-h-[460px] w-[347px] -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-lg bg-white px-[22px] py-10 shadow-3xl md:w-[480px] md:px-16"
         onSubmit={handleLogin}
       >
         <p className="text-3xl font-bold text-gray-800">Welcome back!</p>
@@ -104,6 +104,7 @@ const LoginPage = () => {
         </div>
 
         <button
+          style={loading ? { pointerEvents: "none" } : {}}
           className="mt-9 flex h-[50px] w-full shrink-0 items-center justify-center rounded-lg bg-[#5F55EE] font-medium text-white transition-colors hover:bg-[#544DC9]"
           type="submit"
         >

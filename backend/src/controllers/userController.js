@@ -148,18 +148,7 @@ const signup = [
         path: "/",
       });
 
-      const verificationCode = crypto.randomBytes(3).toString("hex");
-      const verificationExpires = Date.now() + 3600000; // 1 Hour
-
-      const verificationRecord = new verificationCodeModel({
-        userId: userDocument._id,
-        verificationCode: verificationCode,
-        expiresAt: verificationExpires,
-      });
-
-      await verificationRecord.save();
-
-      await sendVerificationCode(userDocument.email, verificationCode);
+      await generateAndSendVerificationCode(userDocument);
 
       return res.status(200).json({
         message: "Registered successfully",
@@ -205,9 +194,10 @@ const verifyEmail = async (req, res) => {
 
     userDocument.isVerified = true;
 
-    await userDocument.save();
-
-    await verificationCodeModel.deleteMany({ userId: userDocument._id });
+    await Promise.all([
+      userDocument.save(),
+      verificationCodeModel.deleteMany({ userId: userDocument._id }),
+    ]);
 
     return res.status(200).json({
       message: "Email verified successfully!",
@@ -230,26 +220,65 @@ const resendVerificationCode = async (req, res, next) => {
       return res.status(400).json({ message: "User is already verified" });
     }
 
-    await verificationCodeModel.deleteMany({ userId: userDocument._id });
+    const { canResend, timeRemaining } = await checkCooldownPeriod(
+      userDocument._id
+    );
 
-    const verificationCode = crypto.randomBytes(3).toString("hex");
-    const verificationExpires = Date.now() + 3600000; // 1 Hour
+    if (!canResend) {
+      return res
+        .status(400)
+        .json({ message: `Wait ${timeRemaining} before asking to resend` });
+    }
 
-    const verificationRecord = new verificationCodeModel({
-      userId: userDocument._id,
-      verificationCode: verificationCode,
-      expiresAt: verificationExpires,
-    });
-
-    await verificationRecord.save();
-
-    await sendVerificationCode(userDocument.email, verificationCode);
+    await generateAndSendVerificationCode(userDocument);
 
     return res
       .status(200)
       .json({ message: "Verification code has been resent" });
   } catch (error) {
     next(error);
+  }
+};
+
+const generateAndSendVerificationCode = async (userDocument) => {
+  const verificationCode = crypto.randomBytes(3).toString("hex");
+  const verificationExpires = Date.now() + 3600000; // 1 Hour
+
+  const verificationRecord = new verificationCodeModel({
+    userId: userDocument._id,
+    verificationCode,
+    expiresAt: verificationExpires,
+  });
+
+  await verificationRecord.save();
+
+  await sendVerificationCode(userDocument.email, verificationCode);
+};
+
+const checkCooldownPeriod = async (userId) => {
+  try {
+    const recentVerificationCode = await verificationCodeModel
+      .findOne({ userId })
+      .sort({ createdAt: -1 });
+
+    if (!recentVerificationCode) {
+      return { canResend: true };
+    }
+
+    const now = new Date();
+    const createdAt = recentVerificationCode.createdAt;
+
+    const timeDifferenceInSeconds = (now - createdAt) / 1000;
+
+    if (timeDifferenceInSeconds < 60) {
+      const timeRemaining = Math.floor(60 - timeDifferenceInSeconds);
+      return { canResend: false, timeRemaining };
+    }
+
+    return { canResend: true };
+  } catch (error) {
+    console.error("Error checking cooldown period:", error);
+    throw error;
   }
 };
 

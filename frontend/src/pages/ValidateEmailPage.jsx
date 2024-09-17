@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 const ValidateEmailPage = () => {
   const [loading, setLoading] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
+
   const { user, setUser } = useAuth();
   const inputRef = useRef(null);
   const navigate = useNavigate();
