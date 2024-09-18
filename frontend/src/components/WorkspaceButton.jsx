@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspace } from "../api";
 import { IMAGES_ROUTE } from "../api/api";
+import Avatar from "react-avatar";
 
 const WorkspaceButton = ({ onClick }) => {
   const { workspaceId } = useParams();
@@ -18,12 +19,15 @@ const WorkspaceButton = ({ onClick }) => {
       onClick={() => onClick()}
     >
       <div className="flex h-full items-center justify-center">
-        <span className="shrink-0">
-          <img
-            className="size-5 rounded-[4px]"
-            src={`${IMAGES_ROUTE}/${workspace?.image}`}
-          ></img>
-        </span>
+        <Avatar
+          name={workspace?.name}
+          color="#B2E0E0"
+          fgColor="#3D5456"
+          round={5}
+          size="25px"
+          maxInitials={1}
+          textSizeRatio={2}
+        />
         <div className="hidden h-full lg:block">
           <span className="ml-3 line-clamp-1 break-all">{workspace?.name}</span>
         </div>

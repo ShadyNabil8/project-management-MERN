@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IMAGES_ROUTE } from "../api/api";
-
+import Avatar from "react-avatar";
 const Workspace = ({ workspace, toggleList }) => {
   return (
     <Link
@@ -10,12 +10,15 @@ const Workspace = ({ workspace, toggleList }) => {
       className="flex cursor-pointer items-center rounded-md p-2 hover:bg-gray-200"
       onClick={() => toggleList()}
     >
-      <span className="shrink-0">
-        <img
-          className="size-7 rounded-md"
-          src={`${IMAGES_ROUTE}/${workspace.image}`}
-        ></img>
-      </span>
+      <Avatar
+        name={workspace.name}
+        color="#B2E0E0"
+        fgColor="#3D5456"
+        round={5}
+        size="30px"
+        maxInitials={1}
+        textSizeRatio={2}
+      />
       <div className="ml-4 flex flex-col justify-center">
         <span className="line-clamp-1 break-all text-sm">{workspace.name}</span>
         <span className="text-xs">{workspace.members.length} members</span>
