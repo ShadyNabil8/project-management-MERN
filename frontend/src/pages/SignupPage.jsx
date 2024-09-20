@@ -13,8 +13,7 @@ import {
 } from "../utils/validation";
 import ButtonLoading from "../components/ButtonLoading";
 import api, { REGISTER_ROUTE } from "../api/api";
-import { ToastContainer, toast, Slide } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import useNotifier from "../hooks/useNotifier";
 
 const SignupPage = () => {
   const [signupData, setSignupData] = useState({
@@ -30,6 +29,7 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const notify = useNotifier();
   const handleSignup = async (e) => {
     try {
       e.preventDefault();
@@ -47,7 +47,7 @@ const SignupPage = () => {
       }));
 
       if (!errorInEmail && !errorInPassword && !errorInFullName) {
-        const response = await api.post(REGISTER_ROUTE, {
+        const response = await api.post("/user/signup", {
           fullName: signupData.fullName,
           email: signupData.email,
           password: signupData.password,
@@ -59,7 +59,7 @@ const SignupPage = () => {
         navigate("/verify-email");
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      notify.error(error.response?.data?.message || "Something went wrong!");
     } finally {
       setLoading(false);
     }
@@ -127,20 +127,6 @@ const SignupPage = () => {
           <FcGoogle className="absolute right-3 text-2xl" />
         </button>
       </Form>
-
-      <ToastContainer
-        position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition:Slide
-      />
     </div>
   );
 };

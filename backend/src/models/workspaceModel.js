@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
+const spaceModel = require("./spaceModel");
 
 const schema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-  },
-  image: {
-    type: String,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -27,6 +25,17 @@ schema.pre("save", function (next) {
     this.image = `${firstChar}.jpeg`;
   }
   next();
+});
+
+schema.post("save", async function () {
+  try {
+    await spaceModel.create({
+      name: "Team Space",
+      workspaceId: this._id,
+    });
+  } catch (error) {
+    console.error("Error creating space:", error);
+  }
 });
 
 module.exports = mongoose.model("Workspace", schema);

@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import MainLoading from "./MainLoading";
 import api from "../api/api";
+import { fetchWorkspaces } from "../api";
 
 const IndexRoute = () => {
   const [loading, setLoading] = useState(true);
@@ -22,9 +23,16 @@ const IndexRoute = () => {
             return navigate("/verify-email");
           }
 
-          const response = await api.get("/workspace");
-          if (!response.data.workspacesDocuments.length) {
+          // Means that user has no workspaces yet.
+          const userWorkspaces = await fetchWorkspaces();
+          if (!userWorkspaces.length) {
             return navigate("/workspace-setup");
+          }
+          console.log(user);
+
+          // Means that user has invitaions to join workspace
+          if (user.workspaceInvitations.length > 0) {
+            return navigate("/join-team");
           }
 
           if (!params.hasOwnProperty("workspaceId")) {

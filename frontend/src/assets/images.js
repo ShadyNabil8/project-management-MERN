@@ -15,7 +15,8 @@ import b from "./images/b.jpeg";
 import m from "./images/m.jpeg";
 import arrowdown from "./images/arrowdown.png";
 import email from "./images/email.png";
-
+import notfound from "./images/notfound.png";
+import wave from "./images/wave.gif";
 
 export const developerImage = developer;
 export const homeImage = home;
@@ -34,4 +35,5 @@ export const arrowdownImage = arrowdown;
 export const listImage = list;
 export const menuImage = menu;
 export const emailImage = email;
-
+export const notfoundImage = notfound;
+export const waveGif = wave;

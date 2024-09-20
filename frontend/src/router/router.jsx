@@ -11,6 +11,9 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import CreateWorkspace from "../pages/CreateWorkspace";
 import SignupPage from "../pages/SignupPage";
 import ValidateEmailPage from "../pages/ValidateEmailPage";
+import JoinTeamPage from "../pages/JoinTeamPage";
+import WorkspaceInvitationsRoute from "../components/WorkspaceInvitationsRoute";
+import NotFoundTeamPage from "../pages/NotFoundTeamPage";
 
 const router = createBrowserRouter([
   {
@@ -26,34 +29,39 @@ const router = createBrowserRouter([
     element: <IndexRoute />,
   },
   {
-    path: "/:workspaceId", // I treat this as index route because there is nothing without workspace
+    path: "/:workspaceId",
     element: <IndexRoute />,
   },
   {
     element: <ProtectedRoute />,
     children: [
       {
-        element: <RootLayout />,
+        element: <WorkspaceInvitationsRoute />,
         children: [
           {
-            path: "/:workspaceId/home",
-            element: <WorkspaceHome />,
-          },
-          {
-            path: "/:workspaceId/inbox",
-            element: <WorkspaceInbox />,
-          },
-          {
-            path: "/:workspaceId/dashboards",
-            element: <WorkspaceDashboards />,
-          },
-          {
-            path: "/:workspaceId/space/:spaceId",
-            element: <SpaceDetails />,
-          },
-          {
-            path: "/:workspaceId/space/:spaceId/list/:listId",
-            element: <ListDetails />,
+            element: <RootLayout />,
+            children: [
+              {
+                path: "/:workspaceId/home",
+                element: <WorkspaceHome />,
+              },
+              {
+                path: "/:workspaceId/inbox",
+                element: <WorkspaceInbox />,
+              },
+              {
+                path: "/:workspaceId/dashboards",
+                element: <WorkspaceDashboards />,
+              },
+              {
+                path: "/:workspaceId/space/:spaceId",
+                element: <SpaceDetails />,
+              },
+              {
+                path: "/:workspaceId/space/:spaceId/list/:listId",
+                element: <ListDetails />,
+              },
+            ],
           },
         ],
       },
@@ -64,6 +72,14 @@ const router = createBrowserRouter([
       {
         path: "/verify-email",
         element: <ValidateEmailPage />,
+      },
+      {
+        path: "/join-team",
+        element: <JoinTeamPage />,
+      },
+      {
+        path: "/not-found-team",
+        element: <NotFoundTeamPage />,
       },
     ],
   },

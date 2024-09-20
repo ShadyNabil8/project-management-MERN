@@ -3,6 +3,7 @@ const { CustomError } = require("../middlewares/errorHandler");
 const userModel = require("../models/userModel");
 const workspaceModel = require("../models/workspaceModel");
 const verificationCodeModel = require("../models/verificationCodeModel");
+const workspaceInvitationsModel = require("../models/workspaceInvitationModel");
 const { hashPassword, comparePassword } = require("../utils/password");
 const { generateAccessToken, generateRefreshToken } = require("../utils/token");
 const { delay } = require("../utils/utils");
@@ -10,17 +11,13 @@ const { body, validationResult } = require("express-validator");
 const { sendVerificationCode } = require("../utils/email");
 const crypto = require("crypto");
 
-const findUser = async function (query) {
-  return await userModel.findOne(query);
-};
-
 const login = async function (req, res, next) {
   try {
     await delay(1000);
 
     const { email, password } = req.body;
 
-    const userDocument = await findUser({ email });
+    const userDocument = await userModel.findOne({ email }).lean();
 
     if (!userDocument) {
       return res.status(404).json({
@@ -48,12 +45,25 @@ const login = async function (req, res, next) {
       path: "/",
     });
 
+    const workspaceInvitations = await workspaceInvitationsModel
+      .find({
+        userId: userDocument._id,
+      })
+      .select("workspace")
+      .populate({
+        path: "workspace",
+        select: "name",
+      })
+      .lean();
+
     return res.status(200).json({
       accessToken,
       user: {
         fullName: userDocument.fullName,
         email: userDocument.email,
         id: userDocument._id,
+        isVerified: userDocument.isVerified,
+        workspaceInvitations,
       },
     });
   } catch (error) {
@@ -69,14 +79,29 @@ const getUser = async function (req, res, next) {
     const userDocument = await userModel.findById(_id);
 
     if (!userDocument) {
-      throw new CustomError("User not found", 404);
+      return res.status(404).json({
+        message: "User not found",
+      });
     }
 
+    const workspaceInvitations = await workspaceInvitationsModel
+      .find({
+        userId: userDocument._id,
+      })
+      .select("workspace")
+      .populate({
+        path: "workspace",
+        select: "name",
+      })
+      .lean();
+      console.log(workspaceInvitations);
+      
     return res.status(200).json({
       fullName: userDocument.fullName,
       email: userDocument.email,
       _id: userDocument._id,
       isVerified: userDocument.isVerified,
+      workspaceInvitations,
     });
   } catch (error) {
     next(error);

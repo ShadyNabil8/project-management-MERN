@@ -5,7 +5,7 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  workspace: {
+  workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Workspace",
   },

@@ -3,7 +3,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchWorkspace } from "../api";
-import { IMAGES_ROUTE } from "../api/api";
 import Avatar from "react-avatar";
 
 const WorkspaceButton = ({ onClick }) => {
@@ -23,7 +22,7 @@ const WorkspaceButton = ({ onClick }) => {
           name={workspace?.name}
           color="#B2E0E0"
           fgColor="#3D5456"
-          round={5}
+          round="5px"
           size="25px"
           maxInitials={1}
           textSizeRatio={2}

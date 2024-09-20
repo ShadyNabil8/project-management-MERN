@@ -9,19 +9,37 @@ const getWorkspaces = async function (req, res, next) {
     await delay(1000);
 
     const { workspaceId } = req.query;
+    const user = req.user;
 
     let workspacesDocuments;
 
     if (workspaceId) {
-      workspacesDocuments = await workspaceModel.findById(workspaceId);
-    } else {
-      workspacesDocuments = await workspaceModel.find({
-        members: { $in: [req.user._id] },
-      });
-    }
+      const workspaceDocument = await workspaceModel
+        .findById(workspaceId)
+        .lean();
 
+      if (!workspaceDocument) {
+        return res.status(404).json({
+          message: "Workspace doesn't exist anymore.",
+        });
+      }
+
+      if (!workspaceDocument.members.map(String).includes(String(user._id))) {
+        return res
+          .status(400)
+          .json({ message: "You don't have access to this Workspace." });
+      }
+
+      workspacesDocuments = [workspaceDocument]; // Wrap in an array for consistency
+    } else {
+      workspacesDocuments = await workspaceModel
+        .find({
+          members: { $in: [req.user._id] },
+        })
+        .lean();
+    }
     return res.status(200).json({
-      workspacesDocuments: workspacesDocuments || [],
+      workspacesDocuments,
     });
   } catch (error) {
     return next(error);

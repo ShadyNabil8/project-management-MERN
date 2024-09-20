@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IMAGES_ROUTE } from "../api/api";
 import Avatar from "react-avatar";
 const Workspace = ({ workspace, toggleList }) => {
   return (
@@ -14,7 +13,7 @@ const Workspace = ({ workspace, toggleList }) => {
         name={workspace.name}
         color="#B2E0E0"
         fgColor="#3D5456"
-        round={5}
+        round="5px"
         size="30px"
         maxInitials={1}
         textSizeRatio={2}

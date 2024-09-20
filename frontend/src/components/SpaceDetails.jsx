@@ -6,11 +6,11 @@ import SpaceBreadcrumb from "./SpaceBreadcrumb";
 import { useHeader } from "../context/HeaderContext";
 
 const SpaceDetails = () => {
-  const { spaceId } = useParams();
+  const { spaceId, workspaceId } = useParams();
   const { setHeaderContent } = useHeader();
 
   const { data: space, isLoading } = useFetchData(["spaces", spaceId], () =>
-    fetchSpace(spaceId),
+    fetchSpace(workspaceId, spaceId),
   );
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const SpaceDetails = () => {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <div> {`This is the summary of ${space?.name} ${space?.id}`}</div>
+        <div> {`This is the summary of ${space?.name} ${space?._id}`}</div>
       )}
     </div>
   );

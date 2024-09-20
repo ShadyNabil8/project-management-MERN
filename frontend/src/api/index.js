@@ -1,36 +1,67 @@
-import { listsData, spacesData, workspacesData } from "../assets/data";
-import api, { LOGIN_ROUTE, GET_USER_ROUTE, GET_WORKSPACES_ROUTE, REFRESH_TOKEN_ROUTE } from "./api";
+import { listsData } from "../assets/data";
+import api, { LOGIN_ROUTE, REFRESH_TOKEN_ROUTE } from "./api";
 
-export const getUser = async function () {
+export const fetchWorkspaces = async () => {
   try {
-    // This api should return an access token and user data.
-    const response = await api.get(GET_USER_ROUTE);
-    return response.data;
+    const response = await api.get("/workspace");
+    return response.data.workspacesDocuments;
   } catch (error) {
-    console.error("Error fetching user:", error.message);
+    console.error(
+      "Error fetching workspaces:",
+      error.response?.data?.message ||
+        `Something wrong in fetching workspaces: ${error}`,
+    );
     throw error;
   }
 };
 
-export const fetchWorkspaces = async () => {
+export const fetchWorkspace = async (workspaceId) => {
   try {
-    const response = await api.get(GET_WORKSPACES_ROUTE);
-    return response.data.workspacesDocuments;
+    const response = await api.get("/workspace", {
+      params: { workspaceId },
+    });
+    return response.data.workspacesDocuments[0];
   } catch (error) {
-    console.error("Error fetching workspaces:", error.message);
+    console.error(
+      "Error fetching workspace:",
+      error.response?.data?.message ||
+        `Something wrong in fetching workspace: ${error}`,
+    );
+
     throw error;
   }
 };
 
 export const fetchSpaces = async (workspaceId) => {
-  console.log("Inside fetchSpaces");
+  try {
+    const response = await api.get("/space", {
+      params: { workspaceId },
+    });
+    return response.data.spacesDocuments;
+  } catch (error) {
+    console.error(
+      "Error fetching spaces:",
+      error.response?.data?.message ||
+        `Something wrong in fetching spaces: ${error}`,
+    );
+    throw error;
+  }
+};
 
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-  const spaces = spacesData.filter((space) => space.workspaceId == workspaceId);
-
-  return spaces;
+export const fetchSpace = async (workspaceId, spaceId) => {
+  try {
+    const response = await api.get("/space", {
+      params: { workspaceId, spaceId },
+    });
+    return response.data.spacesDocuments[0];
+  } catch (error) {
+    console.error(
+      "Error fetching space:",
+      error.response?.data?.message ||
+        `Something wrong in fetching space: ${error}`,
+    );
+    throw error;
+  }
 };
 
 export const fetchLists = async (spaceId) => {
@@ -42,25 +73,6 @@ export const fetchLists = async (spaceId) => {
 
   const lists = listsData.filter((list) => list.spaceId == spaceId);
   return lists;
-};
-
-export const fetchWorkspace = async (workspaceId) => {
-  const workspace = await api.get(GET_WORKSPACES_ROUTE, {
-    params: { workspaceId: workspaceId },
-  });
-  return workspace.data.workspacesDocuments || null;
-};
-
-export const fetchSpace = async (spaceId) => {
-  console.log("Inside fetchSpace");
-
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-
-  const space = spacesData.find((space) => space.id == spaceId);
-
-  return space;
 };
 
 export const fetchList = async (listId) => {

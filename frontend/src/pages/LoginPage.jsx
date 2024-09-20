@@ -9,6 +9,7 @@ import FormField from "../components/FormField";
 import ButtonLoading from "../components/ButtonLoading";
 import { MdOutlineEmail } from "react-icons/md";
 import { SlLock } from "react-icons/sl";
+import useNotifier from "../hooks/useNotifier";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -19,6 +20,7 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const notify = useNotifier();
 
   const handleLogin = async (e) => {
     try {
@@ -34,22 +36,24 @@ const LoginPage = () => {
         password: errorInPassword,
       }));
 
-      if (/* !errorInEmail && !errorInPassword */ true) {
+      if (!errorInEmail && !errorInPassword) {
         await new Promise((resolve) => {
           setTimeout(resolve, 3000);
         });
 
-        // // This response contins the access token and user data.
-        // const response = await api.post(LOGIN_ROUTE, {
-        //   email: "email1@gmail.com",
-        //   password: "email1",
-        // });
-        // // login function inside the AuthContext is ised to set the auth state with token and user data.
-        // login(response.data);
-        // navigate("/");
+        // This response contins the access token and user data.
+        const response = await api.post("/user/login", {
+          email: loginData.email,
+          password: loginData.password,
+        });
+        console.log(response.data);
+        
+        // login function inside the AuthContext is ised to set the auth state with token and user data.
+        login(response.data);
+        navigate("/");
       }
     } catch (error) {
-      throw error;
+      notify.error(error.response?.data?.message || "Something went wrong!");
     } finally {
       setLoading(false);
     }

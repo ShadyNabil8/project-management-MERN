@@ -28,6 +28,12 @@ app.use("/user", userRouter);
 const workspaceRouter = require("./routes/workspaceRoute");
 app.use("/workspace", workspaceRouter);
 
+const spaceRouter = require("./routes/spaceRoute");
+app.use("/space", spaceRouter);
+
+const workspaceInvitationRouter = require("./routes/workspaceInvitationRoute");
+app.use("/workspace-invitation", workspaceInvitationRouter);
+
 app.use("/images", express.static("public/images"));
 
 app.use(errorHandler);
