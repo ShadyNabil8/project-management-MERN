@@ -4,6 +4,7 @@ import router from "./router/router";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderProvider from "./context/HeaderContext";
 
 // Make a custom hock for this
 const queryClient = new QueryClient({
@@ -21,9 +22,11 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router}></RouterProvider>
-        </QueryClientProvider>
+        <HeaderProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router}></RouterProvider>
+          </QueryClientProvider>
+        </HeaderProvider>
       </AuthProvider>
       <ToastContainer
         position="bottom-left"

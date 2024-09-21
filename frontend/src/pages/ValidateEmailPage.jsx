@@ -12,7 +12,10 @@ const ValidateEmailPage = () => {
   const [verificationCode, setVerificationCode] = useState("");
 
   const { user, setUser } = useAuth();
+
   const inputRef = useRef(null);
+  const verificationEffectRan = useRef(false);
+
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -30,7 +33,10 @@ const ValidateEmailPage = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "Something went wrong in email verification!");
+      toast.error(
+        error.response?.data?.message ||
+          "Something went wrong in email verification!",
+      );
       throw error;
     }
   };
@@ -61,9 +67,10 @@ const ValidateEmailPage = () => {
   }, []);
 
   useEffect(() => {
-    if (verificationCodeParam) {
+    if (verificationEffectRan.current === false && verificationCodeParam) {
       setLoading(true);
       verifyEmail(verificationCodeParam).finally(() => setLoading(false));
+      verificationEffectRan.current = true;
     }
   }, [verificationCodeParam]);
 
@@ -113,19 +120,6 @@ const ValidateEmailPage = () => {
           </Link>
         </div>
       </Form>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition:Slide
-      />
     </div>
   );
 };

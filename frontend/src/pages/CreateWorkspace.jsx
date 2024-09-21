@@ -68,6 +68,8 @@ const CreateWorkspace = () => {
   const handlePrevStage = (e) => {
     if (stage > 1) {
       setStage((prev) => prev - 1);
+    } else {
+      navigate(-1);
     }
   };
 

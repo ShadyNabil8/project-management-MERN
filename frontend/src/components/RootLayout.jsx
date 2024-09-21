@@ -13,16 +13,13 @@ const RootLayout = () => {
   const { workspaceId } = useParams();
   const [isVisibleResizer, setIsVisibleResizer] = useState(false);
 
-  const isSpacesFetching = useIsFetching({
-    queryKey: ["spaces", workspaceId],
-  });
-  const isListsFetching = useIsFetching({
-    queryKey: ["lists", workspaceId],
+  const isFetchingWorkspace = useIsFetching({
+    queryKey: ["workspaces"],
   });
 
   return (
-    <HeaderProvider>
-      {(isSpacesFetching > 0 || isListsFetching > 0) && <MainLoading />}
+    <>
+      {isFetchingWorkspace > 0 && <MainLoading />}
       <div className="grid h-screen w-screen grid-cols-[50px_auto] grid-rows-[40px_50px_auto] lg:grid-cols-[14%_auto]">
         <div className="col-span-2">
           <Header />
@@ -48,7 +45,7 @@ const RootLayout = () => {
         </div>
         <Outlet></Outlet>
       </div>
-    </HeaderProvider>
+    </>
   );
 };
 

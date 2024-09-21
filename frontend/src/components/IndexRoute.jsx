@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import MainLoading from "./MainLoading";
-import api from "../api/api";
 import { fetchWorkspaces } from "../api";
 
 const IndexRoute = () => {
@@ -28,7 +27,6 @@ const IndexRoute = () => {
           if (!userWorkspaces.length) {
             return navigate("/workspace-setup");
           }
-          console.log(user);
 
           // Means that user has invitaions to join workspace
           if (user.workspaceInvitations.length > 0) {
@@ -53,7 +51,7 @@ const IndexRoute = () => {
   });
 
   if (loading) {
-    return <MainLoading />;
+    return <></>;
   }
 
   return token ? (
