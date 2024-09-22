@@ -71,6 +71,20 @@ const login = async function (req, res, next) {
   }
 };
 
+const logout = async function (req, res, next) {
+  try {
+    await delay(1000);
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const getUser = async function (req, res, next) {
   try {
     await delay(1000);
@@ -94,8 +108,8 @@ const getUser = async function (req, res, next) {
         select: "name",
       })
       .lean();
-      console.log(workspaceInvitations);
-      
+    console.log(workspaceInvitations);
+
     return res.status(200).json({
       fullName: userDocument.fullName,
       email: userDocument.email,
@@ -314,4 +328,5 @@ module.exports = {
   signup,
   verifyEmail,
   resendVerificationCode,
+  logout,
 };

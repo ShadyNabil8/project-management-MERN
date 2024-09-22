@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Avatar from "react-avatar";
+import Avatar from "./Avatar";
+
 const Workspace = ({ workspace, toggleList }) => {
   return (
     <Link
@@ -11,12 +12,11 @@ const Workspace = ({ workspace, toggleList }) => {
     >
       <Avatar
         name={workspace.name}
-        color="#B2E0E0"
-        fgColor="#3D5456"
-        round="5px"
+        fontSize="18px"
         size="30px"
-        maxInitials={1}
-        textSizeRatio={2}
+        backgroundColor="#B2E0E0"
+        textColor="#3D5456"
+        round="5px"
       />
       <div className="ml-4 flex flex-col justify-center">
         <span className="line-clamp-1 break-all text-sm">{workspace.name}</span>

@@ -5,6 +5,7 @@ export default {
     extend: {
       boxShadow: {
         "3xl": "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+        "4xl": "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
       },
       backgroundImage: {
         layout: "url('/src/assets/images/setupbg.png')",

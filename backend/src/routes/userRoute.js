@@ -5,6 +5,7 @@ const verifyUser = require("../middlewares/verifyUser");
 
 router.post("/login", userController.login);
 router.post("/signup", userController.signup);
+router.post("/logout", verifyUser, userController.logout);
 router.get("/", verifyUser, userController.getUser);
 router.get("/search-user", verifyUser, userController.searchUser);
 router.get("/verify-email", verifyUser, userController.verifyEmail);

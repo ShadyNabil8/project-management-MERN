@@ -5,7 +5,6 @@ import React, {
   useLayoutEffect,
   useState,
 } from "react";
-import MainLoading from "../components/MainLoading";
 import api, { GET_USER_ROUTE, REFRESH_TOKEN_ROUTE } from "../api/api";
 
 const AuthContext = createContext(undefined);
@@ -31,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     const fetchMe = async () => {
       try {
         // Response contains user data.
-        const response = await api.get(GET_USER_ROUTE);
+        const response = await api.get("/user");
         setUser(response.data);
       } catch (error) {
       } finally {
@@ -101,13 +100,14 @@ export const AuthProvider = ({ children }) => {
     console.log("token", token);
   }, [user, token]);
 
-  const logout = () => {
-    // Some like this in backend
-    // res.clearCookie('refreshToken', {
-    //   httpOnly: true,
-    //   secure: process.env.NODE_ENV === 'production',
-    //   sameSite: 'strict',
-    // });
+  const logout = async () => {
+    try {
+      await api.post("/user/logout");
+      setToken(null);
+      setUser(null);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Way for different components to get the auth state.

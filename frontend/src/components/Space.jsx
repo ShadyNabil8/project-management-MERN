@@ -5,7 +5,7 @@ import List from "./List";
 import { Link, useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { fetchLists } from "../api";
-import Avatar from "react-avatar";
+import Avatar from "./Avatar";
 
 const Space = ({ space }) => {
   const [imgSrc, setImgSrc] = useState(space.image);
@@ -26,12 +26,12 @@ const Space = ({ space }) => {
       >
         <Avatar
           name={space.name}
-          color="#F1C1C3"
-          fgColor="#3D5456"
-          round="3px"
+          fontSize="12px"
           size="20px"
-          textSizeRatio={1.5}
-          src={imgSrc}
+          backgroundColor="#F1C1C3"
+          textColor="#3D5456"
+          round="5px"
+          image={imgSrc}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();

@@ -11,11 +11,11 @@ import { useAuth } from "../context/AuthContext";
 const options = [
   {
     title: "setting",
-    image: <IoSettingsOutline className="size-[19px] text-gray-800" />,
+    image: <IoSettingsOutline />,
   },
   {
     title: "Manage users",
-    image: <LuUsers2 className="size-[19px] text-gray-600" />,
+    image: <LuUsers2 />,
   },
 ];
 

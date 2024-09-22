@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "react-avatar";
+import Avatar from "./Avatar";
 
 const SpaceBreadcrumb = ({ space }) => {
   return (
@@ -8,11 +8,11 @@ const SpaceBreadcrumb = ({ space }) => {
         {space ? (
           <Avatar
             name={space.name}
-            color="#F1C1C3"
-            fgColor="#3D5456"
-            round="3px"
+            fontSize="12px"
             size="20px"
-            textSizeRatio={2}
+            backgroundColor="#F1C1C3"
+            textColor="#3D5456"
+            round="5px"
           />
         ) : (
           <div
