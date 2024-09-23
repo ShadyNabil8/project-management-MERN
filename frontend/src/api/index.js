@@ -2,6 +2,8 @@ import { listsData } from "../assets/data";
 import api, { LOGIN_ROUTE, REFRESH_TOKEN_ROUTE } from "./api";
 
 export const fetchWorkspaces = async () => {
+  console.log('2');
+
   try {
     const response = await api.get("/workspace");
     return response.data.workspacesDocuments;
@@ -16,6 +18,8 @@ export const fetchWorkspaces = async () => {
 };
 
 export const fetchWorkspace = async (workspaceId) => {
+  console.log('1');
+  
   try {
     const response = await api.get("/workspace", {
       params: { workspaceId },

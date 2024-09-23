@@ -9,24 +9,12 @@ const SpaceDetails = () => {
   const { spaceId, workspaceId } = useParams();
   const { setHeaderContent } = useHeader();
 
-  const { data: space, isLoading } = useFetchData(["spaces", spaceId], () =>
-    fetchSpace(workspaceId, spaceId),
-  );
+  // useEffect(() => {
+  //   setHeaderContent(<SpaceBreadcrumb space={space} />);
+  //   return () => setHeaderContent(null);
+  // }, [space]);
 
-  useEffect(() => {
-    setHeaderContent(<SpaceBreadcrumb space={space} />);
-    return () => setHeaderContent(null);
-  }, [space]);
-
-  return (
-    <div>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <div> {`This is the summary of ${space?.name} ${space?._id}`}</div>
-      )}
-    </div>
-  );
+  return <div> {`This is the summary of ${spaceId}`}</div>;
 };
 
 export default SpaceDetails;

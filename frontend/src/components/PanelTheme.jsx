@@ -5,11 +5,17 @@ import ThemeButton from "./ThemeButton";
 import { IoMdClose } from "react-icons/io";
 import ColorButton from "./ColorButton";
 import colors from "../assets/colors";
-
-const PanelTheme = () => {
+import OptionsContainer from "./OptionsContainer";
+const PanelTheme = ({ setIsPanelVisible }) => {
   return (
-    <div className="absolute right-0 top-[45px] z-10 flex w-full flex-col rounded-md bg-white p-5 shadow-4xl md:right-2 md:w-[440px]">
-      <button className="absolute right-4 rounded-md p-1 text-xl text-gray-600 hover:bg-gray-200">
+    <OptionsContainer
+      customStyle="right-0 top-[45px] flex w-full flex-col p-5  md:right-2 md:w-[440px]"
+      setIsPanelVisible={setIsPanelVisible}
+    >
+      <button
+        className="absolute right-4 rounded-md p-1 text-xl text-gray-600 hover:bg-gray-200"
+        onClick={() => setIsPanelVisible(false)}
+      >
         <IoMdClose />
       </button>
 
@@ -29,8 +35,9 @@ const PanelTheme = () => {
       <div className="mt-6 flex flex-col gap-2">
         <p className="text-start text-[13px] text-gray-500">My colors</p>
         <div className="grid w-full grid-cols-3 gap-2">
-          {colors.map((color) => (
+          {colors.map((color, index) => (
             <ColorButton
+              key={index}
               colorCode={color.colorCode}
               colorName={color.colorName}
               backgroundColorCode={color.backgroundColorCode}
@@ -38,7 +45,7 @@ const PanelTheme = () => {
           ))}
         </div>
       </div>
-    </div>
+    </OptionsContainer>
   );
 };
 

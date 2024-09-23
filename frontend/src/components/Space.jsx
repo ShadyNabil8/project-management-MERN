@@ -11,10 +11,6 @@ const Space = ({ space }) => {
   const [imgSrc, setImgSrc] = useState(space.image);
   const [isDropped, setIsDropped] = useState(true);
   const { workspaceId } = useParams();
-  const { data: lists, isLoading } = useFetchData(
-    ["lists", workspaceId, space.id],
-    () => fetchLists(space.id),
-  );
 
   return (
     <>
@@ -42,13 +38,13 @@ const Space = ({ space }) => {
           {space.name}
         </span>
       </Link>
-      {isDropped && (
+      {/* {isDropped && (
         <Lists>
           {lists?.map((list, index) => (
             <List list={list} space={space} key={index}></List>
           ))}
         </Lists>
-      )}
+      )} */}
     </>
   );
 };

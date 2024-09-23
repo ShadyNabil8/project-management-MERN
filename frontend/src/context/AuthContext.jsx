@@ -5,7 +5,8 @@ import React, {
   useLayoutEffect,
   useState,
 } from "react";
-import api, { GET_USER_ROUTE, REFRESH_TOKEN_ROUTE } from "../api/api";
+import api from "../api/api";
+import MainLoading from "../components/MainLoading";
 
 const AuthContext = createContext(undefined);
 
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
         ) {
           try {
             // Refresh the access token in server.
-            const response = await api.post(REFRESH_TOKEN_ROUTE);
+            const response = await api.post("/refresh-token");
 
             // After this useLayoutEffect runs, fetchMe runs and sets the user.
             setToken(response.data.accessToken);
@@ -119,7 +120,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{ user, setUser, login, logout, isAuthenticated }}
     >
-      {!loading ? children : <></>}
+      {!loading ? children : <MainLoading />}
     </AuthContext.Provider>
   );
 };

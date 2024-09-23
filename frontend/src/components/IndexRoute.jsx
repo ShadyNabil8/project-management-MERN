@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import MainLoading from "./MainLoading";
-import { fetchWorkspaces } from "../api";
+
 
 const IndexRoute = () => {
   const [loading, setLoading] = useState(true);
@@ -21,10 +20,10 @@ const IndexRoute = () => {
           if (!user.isVerified) {
             return navigate("/verify-email");
           }
-
+          console.log(user);
+          
           // Means that user has no workspaces yet.
-          const userWorkspaces = await fetchWorkspaces();
-          if (!userWorkspaces.length) {
+          if (!user.workspaces.length) {
             return navigate("/workspace-setup");
           }
 
@@ -34,7 +33,7 @@ const IndexRoute = () => {
           }
 
           if (!params.hasOwnProperty("workspaceId")) {
-            setInitialWorkspaceId(userWorkspaces[0]._id);
+            setInitialWorkspaceId(user.workspaces[0]._id);
           } else {
             // I need to check if the user is a member of this ws or not!
             setInitialWorkspaceId(params.workspaceId);

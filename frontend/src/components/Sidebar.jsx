@@ -17,21 +17,21 @@ const Sidebar = () => {
         <SidebarLink
           link={{
             title: "Home",
-            image: <GrHomeRounded className="size-4 text-gray-600" />,
+            image: <GrHomeRounded />,
             to: `/${workspaceId}/home`,
           }}
         />
         <SidebarLink
           link={{
             title: "Inbox",
-            image: <GoInbox className="size-5 text-gray-600" />,
+            image: <GoInbox />,
             to: `/${workspaceId}/inbox`,
           }}
         />
         <SidebarLink
           link={{
             title: "Dashboards",
-            image: <LuLayoutDashboard className="size-5 text-gray-600" />,
+            image: <LuLayoutDashboard />,
             to: `/${workspaceId}/dashboards`,
           }}
         />

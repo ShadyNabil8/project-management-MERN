@@ -10,6 +10,7 @@ const { delay } = require("../utils/utils");
 const { body, validationResult } = require("express-validator");
 const { sendVerificationCode } = require("../utils/email");
 const crypto = require("crypto");
+const spaceModel = require("../models/spaceModel");
 
 const login = async function (req, res, next) {
   try {
@@ -98,17 +99,45 @@ const getUser = async function (req, res, next) {
       });
     }
 
-    const workspaceInvitations = await workspaceInvitationsModel
+    const [workspaceInvitations, workspacesDocuments] = await Promise.all([
+      workspaceInvitationsModel
+        .find({
+          userId: userDocument._id,
+        })
+        .select("workspace")
+        .populate({
+          path: "workspace",
+          select: "name",
+        })
+        .lean(),
+      workspaceModel
+        .find({
+          members: { $in: [_id] },
+        })
+        .select("owner name members")
+        .lean(),
+    ]);
+
+    // Get the workspace IDs from the workspacesDocuments
+    const workspaceIds = workspacesDocuments.map((workspace) => workspace._id);
+
+    //  Fetch spaces that are associated with these workspaces
+    const spacesDocuments = await spaceModel
       .find({
-        userId: userDocument._id,
+        workspaceId: { $in: workspaceIds },
       })
-      .select("workspace")
-      .populate({
-        path: "workspace",
-        select: "name",
-      })
+      .select("name workspaceId")
       .lean();
-    console.log(workspaceInvitations);
+
+    // Associate spaces with their respective workspaces
+    const workspacesWithSpaces = workspacesDocuments.map((workspace) => {
+      return {
+        ...workspace,
+        spaces: spacesDocuments.filter(
+          (space) => String(space.workspaceId) === String(workspace._id)
+        ),
+      };
+    });
 
     return res.status(200).json({
       fullName: userDocument.fullName,
@@ -116,6 +145,7 @@ const getUser = async function (req, res, next) {
       _id: userDocument._id,
       isVerified: userDocument.isVerified,
       workspaceInvitations,
+      workspaces: workspacesWithSpaces,
     });
   } catch (error) {
     next(error);

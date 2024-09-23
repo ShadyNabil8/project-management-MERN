@@ -1,15 +1,15 @@
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router-dom";
-import useFetchData from "../hooks/useFetchData";
-import { fetchWorkspace } from "../api";
 import Avatar from "./Avatar";
+import { useAuth } from "../context/AuthContext";
 
 const WorkspaceButton = ({ onClick }) => {
   const { workspaceId } = useParams();
-  const { data: workspace, isLoading } = useFetchData(
-    ["workspaces", workspaceId],
-    () => fetchWorkspace(workspaceId),
+  const { user } = useAuth();
+
+  const workspace = user.workspaces.find(
+    (workspace) => workspace._id === workspaceId,
   );
 
   return (
@@ -19,7 +19,7 @@ const WorkspaceButton = ({ onClick }) => {
     >
       <button className="flex h-full items-center justify-center">
         <Avatar
-          name={workspace?.name}
+          name={workspace.name}
           fontSize="14px"
           size="25px"
           backgroundColor="#B2E0E0"
@@ -28,7 +28,7 @@ const WorkspaceButton = ({ onClick }) => {
         />
         <div className="hidden h-full lg:block">
           <span className="ml-1 line-clamp-1 break-all font-bold text-gray-800">
-            {workspace?.name}
+            {workspace.name}
           </span>
         </div>
       </button>

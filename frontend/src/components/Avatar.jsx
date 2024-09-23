@@ -24,7 +24,7 @@ const Avatar = ({
         fontWeight,
         fontSize,
       }}
-      className="flex shrink-0 items-center justify-center p-1"
+      className="flex shrink-0 items-center justify-center"
       onClick={onClick}
     >
       {image ? <img src={image}></img> : getFirstLetters(name, numberOfLetters)}

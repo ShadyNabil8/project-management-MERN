@@ -2,13 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const useFetchData = (queryKey, queryFn) => {
+const useFetchData = (queryOptions) => {
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: queryKey,
-    queryFn: queryFn,
-  });
+  const { data, isLoading, error } = useQuery(queryOptions);
 
   useEffect(() => {
     if (!isLoading && error) {
@@ -19,7 +16,7 @@ const useFetchData = (queryKey, queryFn) => {
               ? error.response?.data?.message
               : "You don’t have access to this link or this link is invalid.",
         },
-      });      
+      });
     }
   }, [isLoading, error, data]);
 

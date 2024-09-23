@@ -10,28 +10,12 @@ const ListDetails = () => {
   const { listId, spaceId } = useParams();
   const { setHeaderContent } = useHeader();
 
-  const { data: space } = useFetchData(["spaces", spaceId], () =>
-    fetchSpace(spaceId),
-  );
-  const { data: list, isLoading: isListLoading } = useFetchData(
-    ["lists", listId],
-    () => fetchList(listId),
-  );
+  // useEffect(() => {
+  //   setHeaderContent(<ListBreadcrumb list={list} space={space} />);
+  //   return () => setHeaderContent(null);
+  // }, [list]);
 
-  useEffect(() => {
-    setHeaderContent(<ListBreadcrumb list={list} space={space} />);
-    return () => setHeaderContent(null);
-  }, [list]);
-
-  return (
-    <div className="flex flex-col">
-      {isListLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <div>{`This is the summary of list${list?.id}`}</div>
-      )}
-    </div>
-  );
+  return <div>{`This is the summary of list${listId}`}</div>;
 };
 
 export default ListDetails;
