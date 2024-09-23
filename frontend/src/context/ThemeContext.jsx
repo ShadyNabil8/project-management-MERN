@@ -10,6 +10,12 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     console.log(theme);
+    const htmlTag = document.documentElement;
+    if (theme === "dark") {
+      htmlTag.classList.add("dark");
+    } else {
+      htmlTag.classList.remove("dark");
+    }
   }, [theme]);
   useEffect(() => {
     console.log(color);

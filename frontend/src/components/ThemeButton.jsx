@@ -1,16 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTheme } from "../context/ThemeContext";
-
+import clsx from "clsx";
 const ThemeButton = ({ colorTheme, children }) => {
   const { theme, setTheme } = useTheme();
-  const [isHover, setIsHover] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-  const handleMouseLeave = () => {
-    setIsHover(false);
-  };
   const handleOnClick = () => {
     if (theme !== colorTheme) {
       setTheme(colorTheme);
@@ -18,14 +10,12 @@ const ThemeButton = ({ colorTheme, children }) => {
   };
   return (
     <button
-      style={{
-        backgroundColor: theme === colorTheme ? "white" : "transparent",
-        color: isHover || theme === colorTheme ? "#181C14" : "#6b7280",
-        transition: "all 0.3s",
-      }}
-      className="flex w-1/2 items-center justify-center gap-2 rounded-sm p-1 text-sm text-gray-500"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={clsx(
+        "flex w-1/2 items-center justify-center gap-2 rounded-md p-1 text-sm transition-all",
+        theme === colorTheme
+          ? "bg-bg-color-light-1 text-text-color-light hover:text-text-color-light dark:bg-bg-color-dark-1 dark:text-text-color-dark dark:hover:text-text-color-dark"
+          : "bg-hover-color-light-1 text-text-color-dark-lite hover:text-text-color-light dark:text-text-color-dark-lite dark:bg-hover-color-dark-1 dark:hover:text-text-color-dark",
+      )}
       onClick={handleOnClick}
     >
       {children}

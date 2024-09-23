@@ -14,7 +14,12 @@ const SpaceDetails = () => {
   //   return () => setHeaderContent(null);
   // }, [space]);
 
-  return <div> {`This is the summary of ${spaceId}`}</div>;
+  return (
+    <div className="dark:bg-bg-color-dark-1">
+      {" "}
+      {`This is the summary of ${spaceId}`}
+    </div>
+  );
 };
 
 export default SpaceDetails;

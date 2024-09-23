@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { arrowdownImage } from "../assets/images";
-import Lists from "./Lists";
-import List from "./List";
 import { Link, useParams } from "react-router-dom";
-import useFetchData from "../hooks/useFetchData";
-import { fetchLists } from "../api";
 import Avatar from "./Avatar";
 
 const Space = ({ space }) => {
@@ -16,7 +12,7 @@ const Space = ({ space }) => {
     <>
       <Link
         to={`/${workspaceId}/space/${space._id}`}
-        className="flex cursor-pointer items-center rounded-md p-[6px] hover:bg-gray-200"
+        className="dark:hover:bg-hover-color-dark-1 flex cursor-pointer items-center rounded-md p-[6px] hover:bg-gray-200"
         onMouseEnter={() => setImgSrc(arrowdownImage)}
         onMouseLeave={() => setImgSrc(null)}
       >
@@ -34,7 +30,7 @@ const Space = ({ space }) => {
             setIsDropped((prev) => !prev);
           }}
         />
-        <span className="ml-2 flex items-center text-sm text-gray-800">
+        <span className="dark:text-text-color-dark ml-2 flex items-center text-sm text-gray-800">
           {space.name}
         </span>
       </Link>

@@ -18,8 +18,10 @@ const Workspace = ({ workspace, toggleList }) => {
         textColor="#3D5456"
         round="5px"
       />
-      <div className="ml-4 flex flex-col justify-center">
-        <span className="line-clamp-1 break-all text-sm">{workspace.name}</span>
+      <div className="dark:text-text-color-dark ml-4 flex flex-col justify-center">
+        <span className="line-clamp-1 break-all text-sm font-semibold">
+          {workspace.name}
+        </span>
         <span className="text-xs">{workspace.members.length} members</span>
       </div>
     </Link>

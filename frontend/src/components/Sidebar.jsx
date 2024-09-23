@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { workspaceId } = useParams();
 
   return (
-    <div className="h-full border-r bg-[#F7F8F9] lg:overflow-auto">
+    <div className="dark:bg-bg-color-dark-2 border-r-border-color-dark h-full border-r bg-[#F7F8F9] lg:overflow-auto">
       <SidebarNavigator>
         <SidebarLink
           link={{

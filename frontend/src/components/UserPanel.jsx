@@ -26,14 +26,16 @@ const UserPanel = ({ setIsPanelVisible, setIsThemePanelVisible }) => {
             round="100%"
             numberOfLetters={2}
           />
-          <div className="absolute bottom-0 right-0 box-content size-[8px] rounded-full border-2 border-white bg-green-500"></div>
+          <div className="dark:border-bg-color-dark-3 absolute bottom-0 right-0 box-content size-[8px] rounded-full border-2 border-white bg-green-500"></div>
         </div>
         <div className="flex flex-col items-start">
-          <span className="text-sm">{user.fullName}</span>
+          <span className="dark:text-text-color-dark text-sm font-medium">
+            {user.fullName}
+          </span>
           <span className="text-[13px] text-gray-600">Online</span>
         </div>
       </div>
-      <hr className="w-full text-black"></hr>
+      <hr className="dark:border-border-color-dark w-full"></hr>
       <div className="flex flex-col gap-0 p-2">
         <Option
           option={{
@@ -44,7 +46,7 @@ const UserPanel = ({ setIsPanelVisible, setIsThemePanelVisible }) => {
         />
         <Option option={{ title: "Setting", image: <IoSettingsOutline /> }} />
       </div>
-      <hr className="w-full text-black"></hr>
+      <hr className="dark:border-border-color-dark w-full"></hr>
       <div className="flex flex-col gap-0 p-2">
         <Option
           option={{
