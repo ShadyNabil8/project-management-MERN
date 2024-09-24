@@ -81,16 +81,16 @@ const ValidateEmailPage = () => {
         className="absolute left-1/2 top-1/2 flex min-h-[460px] w-[347px] -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-lg bg-white px-[22px] py-10 shadow-3xl md:w-[480px] md:px-16"
         onSubmit={handleValidation}
       >
-        <p className="text-3xl font-bold text-gray-800">Seconds to sign up! </p>
+        <p className="text-3xl font-bold text-text-color-light">Seconds to sign up! </p>
         <img src={emailImage} className="size-[200px]"></img>
-        <p className="self-start text-2xl text-gray-800">
+        <p className="self-start text-2xl text-text-color-light">
           We just emailed you.
         </p>
-        <p className="text-md mt-4 self-start text-gray-400">
+        <p className="text-md mt-4 self-start text-text-color-light">
           Please enter the code we emailed you.
         </p>
-        <p className="text-md self-start text-gray-800">{user.email}</p>
-        <p className="mt-4 self-start text-sm text-gray-800">
+        <p className="text-md self-start text-text-color-light">{user.email}</p>
+        <p className="mt-4 self-start text-sm text-text-color-light">
           Confirmation code
         </p>
         <input

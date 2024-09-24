@@ -53,7 +53,7 @@ const JoinTeamPage = () => {
           maxInitials={1}
           textSizeRatio={1.7}
         />
-        <p className="mt-14 text-center text-3xl text-gray-800">{`Join ${user.workspaceInvitations[0].workspace.name} workspace on shady's project management app`}</p>
+        <p className="mt-14 text-center text-3xl text-text-color-light">{`Join ${user.workspaceInvitations[0].workspace.name} workspace on shady's project management app`}</p>
         <button
           style={loading ? { pointerEvents: "none" } : {}}
           className="mt-14 flex h-[85px] w-full items-center justify-center rounded-md bg-[#5F55EE] p-3 text-xl font-semibold text-white hover:bg-[#544DC9] md:w-[666px]"

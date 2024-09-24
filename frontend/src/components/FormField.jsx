@@ -12,7 +12,7 @@ const FormField = ({
 }) => {
   return (
     <div className="flex flex-col gap-1">
-      <label className="self-start text-[12px] text-gray-900">{label}</label>
+      <label className="self-start text-[12px] text-text-color-light">{label}</label>
       <div className="relative flex flex-col gap-1">
         <div
           style={error ? { borderColor: "#dc4a3f" } : {}}

@@ -27,7 +27,11 @@ const Avatar = ({
       className="flex shrink-0 items-center justify-center"
       onClick={onClick}
     >
-      {image ? <img src={image}></img> : getFirstLetters(name, numberOfLetters)}
+      {image ? (
+        <img src={image}></img>
+      ) : (
+        <span>{getFirstLetters(name, numberOfLetters)}</span>
+      )}
     </div>
   );
 };

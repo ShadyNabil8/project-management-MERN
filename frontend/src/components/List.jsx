@@ -12,7 +12,7 @@ const List = ({ list, space }) => {
       <span className="shrink-0">
         <img className="size-[11px]" src={listImage}></img>
       </span>
-      <span className="ml-2 text-sm text-gray-800">{list.name}</span>
+      <span className="ml-2 text-sm text-text-color-light">{list.name}</span>
     </Link>
   );
 };

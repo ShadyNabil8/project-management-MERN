@@ -32,7 +32,7 @@ const UserPanel = ({ setIsPanelVisible, setIsThemePanelVisible }) => {
           <span className="dark:text-text-color-dark text-sm font-medium">
             {user.fullName}
           </span>
-          <span className="text-[13px] text-gray-600">Online</span>
+          <span className="text-[13px] dark:text-text-color-dark-lite text-text-color-light">Online</span>
         </div>
       </div>
       <hr className="dark:border-border-color-dark w-full"></hr>

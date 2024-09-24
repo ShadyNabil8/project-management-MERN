@@ -27,12 +27,12 @@ const WorkspaceButton = ({ onClick }) => {
           round="5px"
         />
         <div className="hidden h-full lg:block">
-          <span className="dark:text-text-color-dark ml-1 line-clamp-1 break-all font-bold text-gray-800">
+          <span className="dark:text-text-color-dark ml-1 line-clamp-1 break-all font-bold text-text-color-light">
             {workspace.name}
           </span>
         </div>
       </button>
-      <IoIosArrowDown className="dark:text-text-color-dark text-[10px] text-gray-600 lg:text-base" />
+      <IoIosArrowDown className="dark:text-text-color-dark text-[10px] text-text-color-light lg:text-base" />
     </div>
   );
 };

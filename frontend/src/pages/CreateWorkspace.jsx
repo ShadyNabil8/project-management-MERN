@@ -85,11 +85,11 @@ const CreateWorkspace = () => {
       <div className="h-screen w-screen bg-layout bg-no-repeat blur-md brightness-75"></div>
       <div className="absolute left-1/2 top-1/2 h-screen w-screen -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-10 md:h-[650px] md:w-[65%] xl:w-[900px]">
         <div className="flex flex-col">
-          <div className="self-end text-xl font-bold text-gray-800">
+          <div className="self-end text-xl font-bold text-text-color-light">
             Welcome {`${user.fullName}!`}
           </div>
           <div className="absolute top-1/3 flex -translate-y-1/3 flex-col items-center justify-center self-center">
-            <div className="mb-[60px] flex flex-col items-center text-3xl font-black text-gray-800 md:text-4xl">
+            <div className="mb-[60px] flex flex-col items-center text-3xl font-black text-text-color-light md:text-4xl">
               {stage === 1 ? (
                 <>
                   <p>What would you like to</p>
@@ -144,7 +144,7 @@ const CreateWorkspace = () => {
               </div>
             )}
             {stage === 1 && (
-              <span className="mt-6 text-sm text-gray-500">
+              <span className="mt-6 text-sm text-text-color-light">
                 Try the name of your company or organization.
               </span>
             )}
@@ -158,7 +158,7 @@ const CreateWorkspace = () => {
           ></div>
           <div className="flex justify-between">
             <button
-              className="rounded-lg border px-8 py-3 text-gray-600"
+              className="rounded-lg border px-8 py-3 text-text-color-light"
               onClick={handlePrevStage}
             >
               Back

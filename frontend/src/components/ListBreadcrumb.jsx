@@ -23,7 +23,7 @@ const ListBreadcrumb = ({ list, space }) => {
           )}
         </span>
         {list?.name ? (
-          <span className="text-sm text-gray-800">{list?.name}</span>
+          <span className="text-sm text-text-color-light">{list?.name}</span>
         ) : (
           <div className="h-[18px] w-[80px] animate-pulse rounded-md bg-slate-300" />
         )}

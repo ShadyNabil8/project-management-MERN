@@ -11,10 +11,10 @@ export default {
         "text-color-dark": "#E3E4E6",
         "text-color-dark-lite": "#87909E",
         "hover-color-dark-1": "#3C414A",
-        
         "bg-color-light-1": "#FFFFFF",
         "hover-color-light-1": "#E8EAED",
-        "text-color-light": "#000000",
+        "text-color-light": "#2A2E34",
+        "text-color-light-lite": "#697565",
       },
       boxShadow: {
         "3xl": "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",

@@ -3,7 +3,7 @@ import Avatar from "./Avatar";
 
 const SpaceBreadcrumb = ({ space }) => {
   return (
-    <div className="flex cursor-default items-center gap-2 rounded-md p-1 hover:bg-gray-200">
+    <div className="flex cursor-default items-center gap-2 rounded-md p-1 hover:bg-gray-200 dark:hover:bg-hover-color-dark-1">
       <span className="shrink-0">
         {space ? (
           <Avatar
@@ -21,7 +21,9 @@ const SpaceBreadcrumb = ({ space }) => {
         )}
       </span>
       {space?.name ? (
-        <span className="text-sm text-gray-800">{space?.name}</span>
+        <span className="text-text-color-light text-sm font-medium dark:text-text-color-dark">
+          {space.name}
+        </span>
       ) : (
         <div className="h-[18px] w-[80px] animate-pulse rounded-md bg-slate-300" />
       )}

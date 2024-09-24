@@ -13,16 +13,16 @@ const PanelTheme = ({ setIsPanelVisible }) => {
       setIsPanelVisible={setIsPanelVisible}
     >
       <button
-        className="absolute right-4 rounded-md p-1 text-xl text-gray-600 hover:bg-gray-200 dark:text-text-color-dark dark:hover:bg-hover-color-dark-1"
+        className="text-text-color-light absolute right-4 rounded-md p-1 text-xl hover:bg-gray-200 dark:text-text-color-dark dark:hover:bg-hover-color-dark-1"
         onClick={() => setIsPanelVisible(false)}
       >
         <IoMdClose />
       </button>
 
-      <p className="text-start text-[18px] font-bold text-gray-800 dark:text-text-color-dark">
+      <p className="text-text-color-light text-start text-[18px] font-bold dark:text-text-color-dark">
         Themes
       </p>
-      <p className="dark:text-text-color-dark-lite mt-1 text-start text-[15px] text-gray-500">
+      <p className="dark:text-text-color-dark-lite text-text-color-light-lite mt-1 text-start text-[15px]">
         Customize your Workspace by changing the appearance and theme color.
       </p>
       <div className="mt-5 flex w-full rounded-md bg-[#F0F1F3] p-[2px] dark:bg-hover-color-dark-1">
@@ -35,7 +35,9 @@ const PanelTheme = ({ setIsPanelVisible }) => {
       </div>
 
       <div className="mt-6 flex flex-col gap-2">
-        <p className="text-start text-[13px] text-gray-500">My colors</p>
+        <p className="dark:text-text-color-dark-lite text-text-color-light-lite text-start text-[13px]">
+          My colors
+        </p>
         <div className="grid w-full grid-cols-3 gap-2">
           {colors.map((color, index) => (
             <ColorButton

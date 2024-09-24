@@ -66,12 +66,12 @@ const LoginPage = () => {
         className="absolute left-1/2 top-1/2 flex min-h-[460px] w-[347px] -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-lg bg-white px-[22px] py-10 shadow-3xl md:w-[480px] md:px-16"
         onSubmit={handleLogin}
       >
-        <p className="text-3xl font-bold text-gray-800">Welcome back!</p>
+        <p className="text-3xl font-bold text-text-color-light">Welcome back!</p>
         <button
           className="relative mt-3 flex h-[40px] w-full items-center justify-center rounded-md border p-2 transition-colors hover:bg-[#f7f9fc]"
           type="button"
         >
-          <span className="justify-self-center text-gray-700">
+          <span className="justify-self-center text-text-color-light">
             Continue with Google
           </span>
           <FcGoogle className="absolute right-3 text-2xl" />
