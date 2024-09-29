@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import Space from "./Space";
+import Option from "./Option";
 import { useParams } from "react-router-dom";
 import { CiGrid41 } from "react-icons/ci";
 import { useAuth } from "../context/AuthContext";
+import { IoAdd } from "react-icons/io5";
+import NewSpacePanel from "./NewSpacePanel";
+
 const Spaces = () => {
   const { workspaceId } = useParams();
   const [isVisibleSpaces, setIisVisibleSpaces] = useState(false);
+  const [isNewSpacePanelVisible, setIsNewSpacePanelVisible] = useState(false);
   const { user } = useAuth();
 
   const spaces = user.workspaces.find(
@@ -21,15 +26,25 @@ const Spaces = () => {
         <CiGrid41 className="text-[20px] text-[#046eb0]" />
       </div>
       <div
-        className={`${isVisibleSpaces ? "-translate-x-[calc(100%+50px)]" : "translate-x-0"} dark:bg-bg-color-dark-2 absolute left-[50px] top-[40px] h-[calc(100%-40px)] min-w-[300px] transform bg-[#F7F8F9] p-2 shadow-[4px_0_8px_rgba(0,0,0,0.2)] transition-transform duration-300 ease-in-out lg:static lg:w-full lg:min-w-fit lg:translate-x-0 lg:p-0 lg:shadow-none`}
+        className={`${isVisibleSpaces ? "-translate-x-[calc(100%+50px)]" : "translate-x-0"} absolute left-[50px] top-[40px] h-[calc(100%-40px)] min-w-[300px] transform bg-[#F7F8F9] p-2 shadow-[4px_0_8px_rgba(0,0,0,0.2)] transition-transform duration-300 ease-in-out lg:static lg:w-full lg:min-w-fit lg:translate-x-0 lg:p-0 lg:shadow-none dark:bg-bg-color-dark-2`}
       >
-        <span className="dark:text-text-color-dark mb-1 block text-[13px] text-text-color-light">
+        <span className="mb-1 block text-[13px] text-text-color-light dark:text-text-color-dark">
           Spaces
         </span>
         {spaces.map((space, index) => (
           <Space space={space} key={index}></Space>
         ))}
+        <Option
+          option={{
+            title: "Create Space",
+            image: <IoAdd />,
+            action: () => setIsNewSpacePanelVisible(true),
+          }}
+        />
       </div>
+      {isNewSpacePanelVisible && (
+        <NewSpacePanel setIsPanelVisible={setIsNewSpacePanelVisible} />
+      )}
     </div>
   );
 };

@@ -2,13 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 
-const Workspace = ({ workspace, toggleList }) => {
+const Workspace = ({ workspace }) => {
   return (
     <Link
       reloadDocument
       to={`/${workspace._id}/home`}
       className="flex cursor-pointer items-center rounded-md p-2 hover:bg-gray-200"
-      onClick={() => toggleList()}
     >
       <Avatar
         name={workspace.name}
@@ -18,7 +17,7 @@ const Workspace = ({ workspace, toggleList }) => {
         textColor="#3D5456"
         round="5px"
       />
-      <div className="dark:text-text-color-dark ml-4 flex flex-col justify-center">
+      <div className="ml-4 flex flex-col justify-center dark:text-text-color-dark">
         <span className="line-clamp-1 break-all text-sm font-semibold">
           {workspace.name}
         </span>

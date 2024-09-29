@@ -20,11 +20,7 @@ const WorkspacePanel = ({ workspaces, setIsPanelVisible }) => {
       <WorkspaceList>
         {workspaces.map((workspace, index) =>
           workspace._id !== workspaceId ? (
-            <Workspace
-              key={index}
-              workspace={workspace}
-              //   toggleList={toggleList}
-            ></Workspace>
+            <Workspace key={index} workspace={workspace}></Workspace>
           ) : null,
         )}
       </WorkspaceList>

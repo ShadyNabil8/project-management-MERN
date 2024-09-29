@@ -12,20 +12,24 @@ const FormField = ({
 }) => {
   return (
     <div className="flex flex-col gap-1">
-      <label className="self-start text-[12px] text-text-color-light">{label}</label>
+      <label className="self-start text-[12px] text-text-color-light dark:text-text-color-dark">
+        {label}
+      </label>
       <div className="relative flex flex-col gap-1">
         <div
           style={error ? { borderColor: "#dc4a3f" } : {}}
-          className="flex h-[40px] w-full items-center rounded-lg border px-2"
+          className="flex h-[40px] w-full items-center rounded-lg border px-2 dark:border-border-color-dark"
         >
-          <div
-            style={error ? { color: "#dc4a3f" } : {}}
-            className="text-xl text-[#c7c7c7]"
-          >
-            {icon}
-          </div>
+          {icon && (
+            <div
+              style={error ? { color: "#dc4a3f" } : {}}
+              className="text-xl text-[#c7c7c7]"
+            >
+              {icon}
+            </div>
+          )}
           <input
-            className="w-full bg-transparent p-3 text-sm focus:outline-none"
+            className="w-full bg-transparent p-3 text-sm text-text-color-light focus:outline-none dark:text-text-color-dark"
             placeholder={placeholder}
             type={type}
             value={value}

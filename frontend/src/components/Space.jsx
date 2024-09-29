@@ -12,7 +12,7 @@ const Space = ({ space }) => {
     <>
       <Link
         to={`/${workspaceId}/space/${space._id}`}
-        className="flex cursor-pointer items-center rounded-md p-[6px] hover:bg-gray-200 dark:hover:bg-hover-color-dark-1"
+        className="flex cursor-pointer items-center gap-2 rounded-md p-[6px] hover:bg-gray-200 dark:hover:bg-hover-color-dark-1"
         onMouseEnter={() => setImgSrc(arrowdownImage)}
         onMouseLeave={() => setImgSrc(null)}
       >
@@ -30,7 +30,7 @@ const Space = ({ space }) => {
             setIsDropped((prev) => !prev);
           }}
         />
-        <span className="text-text-color-light ml-2 flex items-center text-sm font-medium dark:text-text-color-dark">
+        <span className="ml-2 flex items-center text-sm font-medium text-text-color-light dark:text-text-color-dark">
           {space.name}
         </span>
       </Link>

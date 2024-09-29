@@ -1,3 +1,4 @@
+import colorsCircles from "../assets/ColorsCircles";
 import { productivityQuotes } from "../assets/quotes";
 
 export function getRandomNumber(max) {
@@ -19,4 +20,11 @@ export function getFirstLetters(str, numLetters) {
     console.error(error.message);
     return "";
   }
+}
+
+export function getRandomColorCircle() {
+  const randomInedx = getRandomNumber(colorsCircles.length);
+  const randomColor = colorsCircles[randomInedx].color;
+  console.log(randomColor);
+  return randomColor;
 }

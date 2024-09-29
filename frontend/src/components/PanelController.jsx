@@ -1,10 +1,17 @@
 import React from "react";
+import clsx from "clsx";
 
-const PanelController = ({ setIsPanelVisible }) => {
+const PanelController = ({ darkBackground, setIsPanelVisible }) => {
   return (
     <div
-      className="fixed z-30 h-screen w-screen bg-transparent"
-      onClick={() => setIsPanelVisible(false)}
+      className={clsx(
+        "absolute-center fixed z-30 h-screen w-screen",
+        darkBackground ? "bg-black opacity-40" : "bg-transparent",
+      )}
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsPanelVisible(false);
+      }}
     ></div>
   );
 };
