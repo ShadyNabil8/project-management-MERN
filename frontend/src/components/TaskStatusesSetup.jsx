@@ -8,24 +8,29 @@ const TaskStatusesSetup = ({
   setIsPanelVisible,
   taskStatuses,
   setTaskStatuses,
+  setIsTaskStatusesVisible,
 }) => {
   const [tempTaskStatuses, setTempTaskStatuses] = useState(taskStatuses);
   const [changedOccurred, setChangedOccurred] = useState(false);
 
   const handleOnApplyChanges = () => {
     setTaskStatuses(tempTaskStatuses);
+    setIsTaskStatusesVisible(false);
   };
 
   return (
     <OptionsContainer
-      customStyle="above-center grid grid-cols-[40%,auto] grid-rows-[10%,auto,10%] w-[580px] h-[640px]"
+      customStyle="above-center grid grid-cols-[40%,auto] grid-rows-[10%,auto,10%] w-full sm:w-[580px] h-[640px]"
       setIsPanelVisible={setIsPanelVisible}
       darkBackground={true}
     >
       <div className="col-span-2 border-b dark:border-border-color-dark">
         <div className="flex items-center gap-4 p-4 text-xl font-bold text-text-color-light dark:text-text-color-dark">
           <button className="my-hover rounded-md p-1">
-            <LeftArrow customStyle="text-text-color-light dark:text-text-color-dark" />
+            <LeftArrow
+              customStyle="text-text-color-light dark:text-text-color-dark"
+              onClick={() => setIsTaskStatusesVisible(false)}
+            />
           </button>
           <span>{`Edit ${spaceName} statuses`}</span>
         </div>

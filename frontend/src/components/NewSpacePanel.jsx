@@ -3,33 +3,14 @@ import { useParams } from "react-router-dom";
 import useNotifier from "../hooks/useNotifier";
 import NewSpaceSetup from "./NewSpaceSetup";
 import TaskStatusesSetup from "./TaskStatusesSetup";
+import defaultTaskStatuses from "../assets/defaultTaskStatuses";
 
 const NewSpacePanel = ({ setIsPanelVisible }) => {
   const [spaceData, setSpaceData] = useState({
     name: "",
     description: "",
   });
-  const [taskStatuses, setTaskStatuses] = useState({
-    notStarted: [
-      {
-        name: "TO DO",
-        color: "#87909E",
-      },
-    ],
-    active: [
-      {
-        name: "in progress",
-        color: "#5F55EE",
-      },
-    ],
-    done: [],
-    closed: [
-      {
-        name: "Complete",
-        color: "#008844",
-      },
-    ],
-  });
+  const [taskStatuses, setTaskStatuses] = useState(defaultTaskStatuses);
   const [isTaskStatusesVisible, setIsTaskStatusesVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
@@ -77,6 +58,7 @@ const NewSpacePanel = ({ setIsPanelVisible }) => {
           setIsPanelVisible={setIsPanelVisible}
           taskStatuses={taskStatuses}
           setTaskStatuses={setTaskStatuses}
+          setIsTaskStatusesVisible={setIsTaskStatusesVisible}
         />
       ) : (
         <NewSpaceSetup
@@ -85,6 +67,7 @@ const NewSpacePanel = ({ setIsPanelVisible }) => {
           setSpaceData={setSpaceData}
           errors={errors}
           setIsTaskStatusesVisible={setIsTaskStatusesVisible}
+          taskStatuses={taskStatuses}
         />
       )}
       {/* <button className="mt-4 flex shrink-0 items-center justify-center self-end rounded-md bg-[#589eca] px-3 py-2 text-[14px] text-white transition-colors hover:bg-[#66B8EB]">
