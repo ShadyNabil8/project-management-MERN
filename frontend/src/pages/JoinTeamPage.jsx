@@ -30,6 +30,9 @@ const JoinTeamPage = () => {
         workspaceInvitations: prev.workspaceInvitations.filter(
           (invitation) => invitation._id != prev.workspaceInvitations[0]._id,
         ),
+        workspaces: isInvitationAccepted
+          ? [...prev.workspaces, response.data.workspaceDocument]
+          : prev.workspaces,
       }));
 
       navigate("/");

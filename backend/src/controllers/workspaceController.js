@@ -72,16 +72,18 @@ const createWorkspaces = [
 
       const workspaceInvitationDocuments = invitedMembersDocuments.map(
         (member) => ({
-          workspaceId: workspacesDocument._id,
+          workspace: workspacesDocument._id,
           userId: member._id,
         })
       );
 
       await workspaceInvitationModel.insertMany(workspaceInvitationDocuments);
-
+      console.log(workspaceInvitationDocuments);
+      console.log(invitedMembers);
+      
       res.status(200).json({
         message: "Workspace created successfully",
-        workspaceId: workspacesDocument._id,
+        workspace: workspacesDocument,
       });
     } catch (error) {
       return next(error);

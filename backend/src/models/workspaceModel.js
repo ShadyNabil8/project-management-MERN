@@ -27,15 +27,15 @@ schema.pre("save", function (next) {
   next();
 });
 
-schema.post("save", async function () {
-  try {
-    await spaceModel.create({
-      name: "Team Space",
-      workspaceId: this._id,
-    });
-  } catch (error) {
-    console.error("Error creating space:", error);
-  }
-});
+// schema.post("save", async function () {
+//   try {
+//     await spaceModel.create({
+//       name: "Team Space",
+//       workspaceId: this._id,
+//     });
+//   } catch (error) {
+//     console.error("Error creating space:", error);
+//   }
+// });
 
 module.exports = mongoose.model("Workspace", schema);

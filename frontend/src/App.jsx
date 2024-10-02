@@ -22,15 +22,15 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <>
-      <AuthProvider>
-        <HeaderProvider>
-          <ThemeProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <HeaderProvider>
             <QueryClientProvider client={queryClient}>
               <RouterProvider router={router}></RouterProvider>
             </QueryClientProvider>
-          </ThemeProvider>
-        </HeaderProvider>
-      </AuthProvider>
+          </HeaderProvider>
+        </AuthProvider>
+      </ThemeProvider>
       <ToastContainer
         position="bottom-left"
         autoClose={5000}

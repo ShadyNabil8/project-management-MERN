@@ -36,6 +36,7 @@ const TaskStatusCollection = ({
         setChangedOccurred={setChangedOccurred}
         setTempTaskStatuses={setTempTaskStatuses}
         taskStatusName={taskStatusName}
+        tempTaskStatuses={tempTaskStatuses}
       />
     </div>
   );

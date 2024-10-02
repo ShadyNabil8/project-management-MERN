@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-
 const IndexRoute = () => {
   const [loading, setLoading] = useState(true);
   const [initialWorkspaceId, setInitialWorkspaceId] = useState(null);
@@ -21,7 +20,7 @@ const IndexRoute = () => {
             return navigate("/verify-email");
           }
           console.log(user);
-          
+
           // Means that user has no workspaces yet.
           if (!user.workspaces.length) {
             return navigate("/workspace-setup");

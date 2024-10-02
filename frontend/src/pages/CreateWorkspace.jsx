@@ -12,7 +12,7 @@ const MAX_STAGE = 2;
 
 const CreateWorkspace = () => {
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [stage, setStage] = useState(1);
   const [workspaceData, setWorkspaceData] = useState({
     invitedMembers: [],
@@ -32,7 +32,11 @@ const CreateWorkspace = () => {
         name: workspaceData.workspaceName,
         invitedMembers: workspaceData.invitedMembers,
       });
-      navigate(`/${response.data.workspaceId}/home`);
+      setUser((prev) => ({
+        ...prev,
+        workspaces: [response.data.workspace],
+      }));
+      navigate(`/${response.data.workspace._id}/home`);
     } catch (error) {
       notify.error(error.response?.data?.message || "Something went wrong!");
     } finally {

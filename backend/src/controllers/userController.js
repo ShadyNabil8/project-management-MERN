@@ -219,6 +219,9 @@ const signup = [
 
       await generateAndSendVerificationCode(userDocument);
 
+      const [workspacesWithSpaces, workspaceInvitations] =
+        await getUserInitialData(userDocument);
+
       return res.status(200).json({
         message: "Registered successfully",
         accessToken,
@@ -226,6 +229,9 @@ const signup = [
           fullName: userDocument.fullName,
           email: userDocument.email,
           _id: userDocument._id,
+          isVerified: userDocument.isVerified,
+          workspaceInvitations,
+          workspaces: workspacesWithSpaces,
         },
       });
     } catch (error) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useAuth } from "../context/AuthContext";
 
@@ -14,7 +14,7 @@ const WorkspaceButton = ({ onClick }) => {
 
   return (
     <div
-      className="dark:hover:bg-hover-color-dark-1 flex h-full w-full items-center justify-center gap-[2px] hover:bg-gray-200 lg:w-[80%] lg:justify-between lg:gap-0 lg:rounded-md lg:p-1"
+      className="flex h-full w-full items-center justify-center gap-[2px] hover:bg-gray-200 lg:w-[80%] lg:justify-between lg:gap-0 lg:rounded-md lg:p-1 dark:hover:bg-hover-color-dark-1"
       onClick={() => onClick()}
     >
       <button className="flex h-full items-center justify-center">
@@ -27,12 +27,12 @@ const WorkspaceButton = ({ onClick }) => {
           round="5px"
         />
         <div className="hidden h-full lg:block">
-          <span className="dark:text-text-color-dark ml-1 line-clamp-1 break-all font-bold text-text-color-light">
+          <span className="ml-1 line-clamp-1 break-all font-bold text-text-color-light dark:text-text-color-dark">
             {workspace.name}
           </span>
         </div>
       </button>
-      <IoIosArrowDown className="dark:text-text-color-dark text-[10px] text-text-color-light lg:text-base" />
+      <IoIosArrowDown className="text-[10px] text-text-color-light lg:text-base dark:text-text-color-dark" />
     </div>
   );
 };

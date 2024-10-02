@@ -26,7 +26,7 @@ const SelectedWorkspace = () => {
   );
 
   return (
-    <div className="dark:border-border-color-dark mb-2 flex flex-col justify-center border-b border-gray-200 pb-2">
+    <div className="mb-2 flex flex-col justify-center border-b border-gray-200 pb-2 dark:border-border-color-dark">
       <div className="pointer-events-none">
         {workspace && <Workspace workspace={workspace}></Workspace>}
       </div>

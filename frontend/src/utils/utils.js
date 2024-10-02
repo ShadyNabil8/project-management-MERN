@@ -25,6 +25,5 @@ export function getFirstLetters(str, numLetters) {
 export function getRandomColorCircle() {
   const randomInedx = getRandomNumber(colorsCircles.length);
   const randomColor = colorsCircles[randomInedx].color;
-  console.log(randomColor);
   return randomColor;
 }
