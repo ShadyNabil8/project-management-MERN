@@ -11,7 +11,7 @@ const ColorPalette = ({ setIsPanelVisible, selectedColor, onColorChoose }) => {
   return (
     <OptionsContainer
       setIsPanelVisible={setIsPanelVisible}
-      customStyle="-top-1 flex -translate-y-full flex-col gap-2 p-5"
+      customStyle="absolute -top-1 flex -translate-y-full flex-col gap-2 p-5"
     >
       <div className="flex items-center justify-between">
         <p className="text-sm text-text-color-light-lite">Colors</p>

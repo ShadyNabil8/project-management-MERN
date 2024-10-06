@@ -5,7 +5,7 @@ import PlusIcon from "./icons/PlusIcon";
 import ReturnArrowIcon from "./icons/ReturnArrowIcon";
 import AddedTaskColor from "./AddedTaskColor";
 import { getRandomColorCircle } from "../utils/utils";
-
+import { HiOutlinePlusSm } from "react-icons/hi";
 const AddNewTaskStatusBar = ({
   setChangedOccurred,
   setTempTaskStatuses,
@@ -76,7 +76,7 @@ const AddNewTaskStatusBar = ({
             onClick={() => setIsColorPaletteVisible(true)}
           />
         ) : (
-          <PlusIcon />
+          <HiOutlinePlusSm className={"lite-text-color"} />
         )}
         <input
           type="text"

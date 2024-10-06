@@ -9,6 +9,11 @@ const schema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Workspace",

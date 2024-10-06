@@ -7,13 +7,8 @@ import OutletHeader from "./OutletHeader";
 
 const RootLayout = () => {
   return (
-    <div className="grid h-screen w-screen grid-cols-[50px_auto] grid-rows-[40px_50px_auto] overflow-hidden lg:grid-cols-[14%_auto]">
-      <div className="col-span-2">
-        <Header />
-      </div>
-      <div className="relative">
-        <WorkspaceNavigator />
-      </div>
+    <div className="grid h-full w-full grid-cols-[50px_auto] grid-rows-[50px_auto] overflow-hidden lg:grid-cols-[14%_auto]">
+      <WorkspaceNavigator />
       <OutletHeader />
       <Sidebar />
       <Outlet />

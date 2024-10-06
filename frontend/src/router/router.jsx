@@ -14,6 +14,7 @@ import ValidateEmailPage from "../pages/ValidateEmailPage";
 import JoinTeamPage from "../pages/JoinTeamPage";
 import WorkspaceInvitationsRoute from "../components/WorkspaceInvitationsRoute";
 import NotFoundTeamPage from "../pages/NotFoundTeamPage";
+import WorkspaceSettingsPage from "../pages/WorkspaceSettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
                 element: <ListDetails />,
               },
             ],
+          },
+          {
+            path: "/:workspaceId/settings",
+            element: <WorkspaceSettingsPage />,
           },
         ],
       },

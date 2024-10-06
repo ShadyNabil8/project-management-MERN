@@ -12,28 +12,22 @@ const Sidebar = () => {
   const { workspaceId } = useParams();
 
   return (
-    <div className="h-full border-r bg-[#F7F8F9] lg:overflow-auto dark:border-r-border-color-dark dark:bg-bg-color-dark-2">
+    <div className="h-full border-r bg-[#F7F8F9] dark:border-r-border-color-dark dark:bg-bg-color-dark-2">
       <SidebarNavigator>
         <SidebarLink
-          link={{
-            title: "Home",
-            image: <GrHomeRounded />,
-            to: `/${workspaceId}/home`,
-          }}
+          title="Home"
+          image=<GrHomeRounded />
+          to={`/${workspaceId}/home`}
         />
         <SidebarLink
-          link={{
-            title: "Inbox",
-            image: <GoInbox />,
-            to: `/${workspaceId}/inbox`,
-          }}
+          title="Inbox"
+          image=<GoInbox />
+          to={`/${workspaceId}/inbox`}
         />
         <SidebarLink
-          link={{
-            title: "Dashboards",
-            image: <LuLayoutDashboard />,
-            to: `/${workspaceId}/dashboards`,
-          }}
+          title="Dashboards"
+          image=<LuLayoutDashboard />
+          to={`/${workspaceId}/dashboards`}
         />
       </SidebarNavigator>
       <Spaces />

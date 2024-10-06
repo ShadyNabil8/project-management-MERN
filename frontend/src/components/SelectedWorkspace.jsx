@@ -1,25 +1,15 @@
 import React from "react";
 import Option from "./Option";
 import Workspace from "./Workspace";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuUsers2 } from "react-icons/lu";
 import { useAuth } from "../context/AuthContext";
 
-const options = [
-  {
-    title: "setting",
-    image: <IoSettingsOutline />,
-  },
-  {
-    title: "Manage users",
-    image: <LuUsers2 />,
-  },
-];
-
 const SelectedWorkspace = () => {
   const { workspaceId } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const workspace = user.workspaces.find(
     (workspace) => workspace._id === workspaceId,
@@ -32,9 +22,12 @@ const SelectedWorkspace = () => {
       </div>
       {workspace.owner === user._id && (
         <div className="mt-1">
-          {options.map((option, index) => (
-            <Option key={index} option={option}></Option>
-          ))}
+          <Option
+            title="Settings"
+            image=<IoSettingsOutline />
+            action={() => navigate(`${workspaceId}/settings`)}
+          />
+          <Option title="Manage users" image=<LuUsers2 /> />
         </div>
       )}
     </div>

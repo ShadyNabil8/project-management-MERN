@@ -98,7 +98,7 @@ const login = async function (req, res, next) {
       user: {
         fullName: userDocument.fullName,
         email: userDocument.email,
-        id: userDocument._id,
+        _id: userDocument._id,
         isVerified: userDocument.isVerified,
         workspaceInvitations,
         workspaces: workspacesWithSpaces,

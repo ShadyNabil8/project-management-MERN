@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NewSpaceSetup from "./NewSpaceSetup";
 import TaskStatusesSetup from "./TaskStatusesSetup";
 import defaultTaskStatuses from "../assets/defaultTaskStatuses";
@@ -10,13 +10,6 @@ const NewSpacePanel = ({ setIsPanelVisible }) => {
     name: "",
     description: "",
   });
-  useEffect(() => {
-    console.log(taskStatuses);
-  }, [taskStatuses]);
-
-  useEffect(() => {
-    console.log(spaceData);
-  }, [spaceData]);
 
   return (
     <>

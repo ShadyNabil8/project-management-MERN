@@ -69,7 +69,7 @@ const NewSpaceSetup = ({
 
   return (
     <OptionsContainer
-      customStyle="above-center flex flex-col w-full sm:w-[580px] p-5 "
+      customStyle="fixed above-center flex flex-col w-full sm:w-[580px] p-5 "
       setIsPanelVisible={setIsPanelVisible}
       darkBackground={true}
     >

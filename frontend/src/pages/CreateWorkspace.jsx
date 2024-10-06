@@ -34,7 +34,7 @@ const CreateWorkspace = () => {
       });
       setUser((prev) => ({
         ...prev,
-        workspaces: [response.data.workspace],
+        workspaces: [...prev.workspaces, response.data.workspace],
       }));
       navigate(`/${response.data.workspace._id}/home`);
     } catch (error) {

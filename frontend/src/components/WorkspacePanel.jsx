@@ -13,10 +13,10 @@ const WorkspacePanel = ({ workspaces, setIsPanelVisible }) => {
 
   return (
     <OptionsContainer
-      customStyle="left-3 top-11 z-10 mt-3 min-w-64 p-2"
+      customStyle="absolute left-3 top-11 z-10 mt-3 min-w-64 p-2"
       setIsPanelVisible={setIsPanelVisible}
     >
-      <SelectedWorkspace></SelectedWorkspace>
+      <SelectedWorkspace />
       <WorkspaceList>
         {workspaces.map((workspace, index) =>
           workspace._id !== workspaceId ? (
@@ -25,12 +25,10 @@ const WorkspacePanel = ({ workspaces, setIsPanelVisible }) => {
         )}
       </WorkspaceList>
       <Option
-        option={{
-          image: <IoAdd />,
-          title: "New Workspace",
-          action: () => navigate("/workspace-setup"),
-        }}
-      ></Option>
+        image=<IoAdd />
+        title="New Workspace"
+        action={() => navigate("/workspace-setup")}
+      />
     </OptionsContainer>
   );
 };

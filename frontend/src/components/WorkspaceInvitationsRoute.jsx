@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Outlet, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Header from "./Header";
 
 const WorkspaceInvitationsRoute = () => {
   const { workspaceId, spaceId, listId } = useParams();
@@ -17,7 +18,12 @@ const WorkspaceInvitationsRoute = () => {
     return <Navigate to="/join-team" />;
   }
 
-  return <Outlet />;
+  return (
+    <div className="flex h-screen w-screen flex-col overflow-hidden">
+      <Header />
+      <Outlet />
+    </div>
+  );
 };
 
 export default WorkspaceInvitationsRoute;

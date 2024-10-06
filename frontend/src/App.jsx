@@ -32,7 +32,7 @@ function App() {
         </AuthProvider>
       </ThemeProvider>
       <ToastContainer
-        position="bottom-left"
+        position="top-center"
         autoClose={5000}
         draggable
         theme="light"

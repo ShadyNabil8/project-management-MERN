@@ -81,6 +81,7 @@ const createSpace = [
       const newSpace = new spaceModel({
         name: spaceName,
         description: spaceDescription,
+        owner: req.user._id,
         workspaceId,
         taskStatuses: savedTaskStatuses, // Reference to task status IDs
       });

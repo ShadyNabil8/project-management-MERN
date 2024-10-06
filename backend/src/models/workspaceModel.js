@@ -19,23 +19,18 @@ const schema = new mongoose.Schema({
   ],
 });
 
-schema.pre("save", function (next) {
-  if (!this.image) {
-    const firstChar = this.name.charAt(0).toUpperCase();
-    this.image = `${firstChar}.jpeg`;
+schema.pre("findByIdAndDelete", async function (next) {
+  try {
+    // Fetch the workspace to be deleted
+    const workspace = await this.model.findOne(this.getQuery());
+    if (workspace) {
+      // Delete all spaces that have the workspace's ID
+      await spaceModel.deleteMany({ workspaceId: workspace._id });
+    }
+    next(); // Proceed with workspace deletion
+  } catch (error) {
+    next(error); // Pass the error if something goes wrong
   }
-  next();
 });
-
-// schema.post("save", async function () {
-//   try {
-//     await spaceModel.create({
-//       name: "Team Space",
-//       workspaceId: this._id,
-//     });
-//   } catch (error) {
-//     console.error("Error creating space:", error);
-//   }
-// });
 
 module.exports = mongoose.model("Workspace", schema);

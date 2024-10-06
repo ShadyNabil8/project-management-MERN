@@ -20,7 +20,7 @@ const TaskStatusesSetup = ({
 
   return (
     <OptionsContainer
-      customStyle="above-center grid grid-cols-[40%,auto] grid-rows-[10%,auto,10%] w-full sm:w-[580px] h-[640px]"
+      customStyle="fixed above-center grid grid-cols-[40%,auto] grid-rows-[10%,auto,10%] w-full sm:w-[580px] h-[640px]"
       setIsPanelVisible={setIsPanelVisible}
       darkBackground={true}
     >

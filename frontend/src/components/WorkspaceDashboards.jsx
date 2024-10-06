@@ -1,11 +1,15 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
 const WorkspaceDashboards = () => {
-  const { workspaceId } = useParams();
-
   return (
-    <div className="dark:bg-bg-color-dark-1">{`This is the dashboards of workspace${workspaceId}`}</div>
+    <div className="relative h-full w-full">
+      <div className="absolute-center absolute flex w-full flex-col items-center">
+        <p className="normal-text-color text-[50px]">Workspace Dashboards.</p>
+        <p className="normal-text-color text-[50px]">
+          This page can contain all nedded dashboards for tasks and members.
+        </p>
+      </div>
+    </div>
   );
 };
 
