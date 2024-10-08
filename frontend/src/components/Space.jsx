@@ -5,10 +5,18 @@ import DownArrowIcon from "./icons/DownArrowIcon";
 import DotsIcon from "./icons/DotsIcon";
 import PlusIcon from "./icons/PlusIcon";
 import NewListPanel from "./NewListPanel";
+import Lists from "./Lists";
+import List from "./List";
 
-const Space = ({ name, id, setIsNewListPanelisible }) => {
+const Space = ({
+  name,
+  id,
+  lists,
+  setIsNewListPanelisible,
+  setSpaceIdOfNewList,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isDropped, setIsDropped] = useState(true);
+  const [isDropped, setIsDropped] = useState(false);
 
   const { workspaceId } = useParams();
 
@@ -16,7 +24,7 @@ const Space = ({ name, id, setIsNewListPanelisible }) => {
     <div>
       <Link
         to={`/${workspaceId}/space/${id}`}
-        className="relative flex cursor-pointer items-center gap-2 rounded-md p-[6px] hover:bg-gray-200 dark:hover:bg-hover-color-dark-1"
+        className="my-hover relative flex cursor-pointer items-center gap-2 rounded-md p-[6px]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -43,24 +51,29 @@ const Space = ({ name, id, setIsNewListPanelisible }) => {
         </span>
         {isHovered && (
           <div className="absolute right-3 flex items-center gap-1">
-            <DotsIcon
-              customStyle="lite-text-color"
-              onClick={() => console.log("hi")}
-            />
+            <DotsIcon customStyle="lite-text-color" />
             <PlusIcon
               customStyle="lite-text-color "
-              onClick={() => setIsNewListPanelisible(true)}
+              onClick={() => {
+                setIsNewListPanelisible(true);
+                setSpaceIdOfNewList(id);
+              }}
             />
           </div>
         )}
       </Link>
-      {/* {isDropped && (
+      {isDropped && (
         <Lists>
-          {lists?.map((list, index) => (
-            <List list={list} space={space} key={index}></List>
+          {lists.map((list, index) => (
+            <List
+              listName={list.name}
+              listId={list._id}
+              spaceId={id}
+              key={index}
+            ></List>
           ))}
         </Lists>
-      )} */}
+      )}
     </div>
   );
 };

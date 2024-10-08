@@ -44,7 +44,6 @@ const NewSpaceSetup = ({
           taskStatuses,
           workspaceId,
         });
-        console.log(response);
 
         // Add this new space to the current user data.
         setUser((prev) => ({
@@ -80,7 +79,7 @@ const NewSpaceSetup = ({
         A Space represents teams, departments, or groups, each with its own
         Lists, workflows, and settings.
       </p>
-      <div className="mt-3 flex flex-col gap-6">
+      <div className="mb-[64px] mt-3 flex flex-col gap-6">
         <FormField
           type={"text"}
           label={"Name"}
@@ -127,13 +126,15 @@ const NewSpaceSetup = ({
           <MdKeyboardArrowRight className="absolute right-5 text-text-color-light-lite dark:text-text-color-dark-lite" />
         </button>
       </div>
-      <button
-        style={loading ? { pointerEvents: "none" } : {}}
-        className="mt-4 flex h-[40px] shrink-0 items-center justify-center self-end rounded-md bg-[#589eca] px-3 py-2 text-[14px] text-white transition-colors hover:bg-[#66B8EB]"
-        onClick={createNewSpace}
-      >
-        {loading ? <ButtonLoading /> : "Create Space"}
-      </button>
+      <div className="bg-bg-color-light-2 absolute inset-x-0 bottom-0 flex h-[64px] items-center justify-end rounded-b-xl px-5 dark:bg-bg-color-dark-1">
+        <button
+          style={loading ? { pointerEvents: "none" } : {}}
+          className="flex h-[35px] w-[100px] shrink-0 items-center justify-center rounded-md bg-[#589eca] text-[14px] text-white transition-colors hover:bg-[#66B8EB]"
+          onClick={createNewSpace}
+        >
+          {loading ? <ButtonLoading /> : "Create Space"}
+        </button>
+      </div>
     </OptionsContainer>
   );
 };

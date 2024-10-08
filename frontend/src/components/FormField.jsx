@@ -18,7 +18,7 @@ const FormField = ({
       <div className="relative flex flex-col gap-1">
         <div
           style={error ? { borderColor: "#dc4a3f" } : {}}
-          className="flex h-[40px] w-full items-center rounded-lg border px-2 dark:border-border-color-dark"
+          className="flex h-[40px] w-full items-center rounded-lg border px-2 focus-within:shadow-[0_0_10px_1px_rgba(0,115,255,0.5)] focus-within:ring-1 focus-within:ring-blue-400 focus-within:ring-opacity-50 dark:border-border-color-dark"
         >
           {icon && (
             <div

@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const useFetchData = (queryOptions) => {
+const useFetchData = (queryKey, queryFn) => {
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useQuery(queryOptions);
+  const { data, isLoading, error } = useQuery({ queryKey, queryFn });
 
   useEffect(() => {
     if (!isLoading && error) {
+      console.log(error);
       navigate("/not-found-team", {
         state: {
           message:

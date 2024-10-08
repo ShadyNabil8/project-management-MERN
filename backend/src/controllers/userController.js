@@ -11,49 +11,75 @@ const { body, validationResult } = require("express-validator");
 const { sendVerificationCode } = require("../utils/email");
 const crypto = require("crypto");
 const spaceModel = require("../models/spaceModel");
+const listModel = require("../models/listModel");
 
 const getUserInitialData = async (userDocument) => {
-  const [workspaceInvitations, workspacesDocuments] = await Promise.all([
-    workspaceInvitationsModel
+  try {
+    const [workspaceInvitations, workspacesDocuments] = await Promise.all([
+      workspaceInvitationsModel
+        .find({
+          userId: userDocument._id,
+        })
+        .select("workspace")
+        .populate({
+          path: "workspace",
+          select: "name",
+        })
+        .lean(),
+      workspaceModel
+        .find({
+          members: { $in: [userDocument._id] },
+        })
+        .select("owner name members")
+        .lean(),
+    ]);
+
+    // Get the workspace IDs from the workspacesDocuments
+    const workspaceIds = workspacesDocuments.map((workspace) => workspace._id);
+
+    //  Fetch spaces that are associated with these workspaces
+    const spacesDocuments = await spaceModel
       .find({
-        userId: userDocument._id,
+        workspaceId: { $in: workspaceIds },
       })
-      .select("workspace")
-      .populate({
-        path: "workspace",
-        select: "name",
-      })
-      .lean(),
-    workspaceModel
+      .select("name workspaceId")
+      .lean();
+
+    // Get the space IDs from the spacesDocuments
+    const spaceIds = spacesDocuments.map((space) => space._id);
+
+    const listsDocuments = await listModel
       .find({
-        members: { $in: [userDocument._id] },
+        space: { $in: spaceIds },
       })
-      .select("owner name members")
-      .lean(),
-  ]);
+      .select("name space")
+      .lean();
 
-  // Get the workspace IDs from the workspacesDocuments
-  const workspaceIds = workspacesDocuments.map((workspace) => workspace._id);
+    // Associate lists with their respective spaces
+    const spacesWithLists = spacesDocuments.map((space) => {
+      return {
+        ...space,
+        lists: listsDocuments.filter(
+          (list) => String(list.space) === String(space._id)
+        ),
+      };
+    });
 
-  //  Fetch spaces that are associated with these workspaces
-  const spacesDocuments = await spaceModel
-    .find({
-      workspaceId: { $in: workspaceIds },
-    })
-    .select("name workspaceId")
-    .lean();
+    // Associate spaces with their respective workspaces
+    const workspacesWithSpaces = workspacesDocuments.map((workspace) => {
+      return {
+        ...workspace,
+        spaces: spacesWithLists.filter(
+          (space) => String(space.workspaceId) === String(workspace._id)
+        ),
+      };
+    });
 
-  // Associate spaces with their respective workspaces
-  const workspacesWithSpaces = workspacesDocuments.map((workspace) => {
-    return {
-      ...workspace,
-      spaces: spacesDocuments.filter(
-        (space) => String(space.workspaceId) === String(workspace._id)
-      ),
-    };
-  });
-
-  return [workspacesWithSpaces, workspaceInvitations];
+    return [workspacesWithSpaces, workspaceInvitations];
+  } catch (error) {
+    console.error("Error fetching initial data:", error);
+    throw error;
+  }
 };
 
 const login = async function (req, res, next) {

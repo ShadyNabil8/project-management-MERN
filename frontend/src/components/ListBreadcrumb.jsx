@@ -2,30 +2,41 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import SpaceBreadcrumb from "./SpaceBreadcrumb";
 import BreadcrumbSeparator from "./BreadcrumbSeparator";
+import { IoListOutline } from "react-icons/io5";
+import clsx from "clsx";
 
-const ListBreadcrumb = ({ list, space }) => {
+const ListBreadcrumb = ({ listName, spaceName }) => {
   const { spaceId, workspaceId } = useParams();
 
   return (
     <>
-      <Link to={`/${workspaceId}/space/${spaceId}`}>
-        <SpaceBreadcrumb space={space} />
+      <Link
+        to={`/${workspaceId}/space/${spaceId}`}
+        className={clsx(
+          spaceName ? "pointer-events-auto" : "pointer-events-none",
+        )}
+      >
+        <SpaceBreadcrumb spaceName={spaceName} />
       </Link>
       <BreadcrumbSeparator />
-      <div className="flex cursor-default items-center gap-2 rounded-md p-1 hover:bg-gray-200">
-        <span className="shrink-0">
-          {list?.image ? (
-            <img className="size-[16px] rounded-[4px]" src={list?.image}></img>
-          ) : (
-            <div
-              className={`size-[16px] animate-pulse rounded-[4px] bg-slate-300`}
-            ></div>
-          )}
-        </span>
-        {list?.name ? (
-          <span className="text-sm text-text-color-light">{list?.name}</span>
+      <div
+        className={clsx(
+          "my-hover flex cursor-default items-center gap-2 rounded-md p-1",
+          listName ? "pointer-events-auto" : "pointer-events-none",
+        )}
+      >
+        {listName ? (
+          <>
+            <IoListOutline className="normal-text-color shrink-0" />
+            <span className="normal-text-color text-sm">{listName}</span>
+          </>
         ) : (
-          <div className="h-[18px] w-[80px] animate-pulse rounded-md bg-slate-300" />
+          <>
+            <div
+              className={`size-[16px] animate-pulse rounded-[4px] bg-slate-200 dark:bg-slate-600`}
+            ></div>
+            <div className="h-[18px] w-[80px] animate-pulse rounded-md bg-slate-200 dark:bg-slate-600" />
+          </>
         )}
       </div>
     </>

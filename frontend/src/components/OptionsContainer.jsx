@@ -16,7 +16,7 @@ const OptionsContainer = ({
       />
       <div
         className={clsx(
-          "z-40 rounded-md bg-white shadow-4xl dark:bg-bg-color-dark-2",
+          "z-40 rounded-xl bg-white shadow-4xl dark:bg-bg-color-dark-2",
           customStyle,
         )}
         onClick={(e) => e.stopPropagation()}

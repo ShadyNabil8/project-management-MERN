@@ -31,6 +31,9 @@ app.use("/workspace", workspaceRouter);
 const spaceRouter = require("./routes/spaceRoute");
 app.use("/space", spaceRouter);
 
+const listRouter = require("./routes/listRoute");
+app.use("/list", listRouter);
+
 const workspaceInvitationRouter = require("./routes/workspaceInvitationRoute");
 app.use("/workspace-invitation", workspaceInvitationRouter);
 

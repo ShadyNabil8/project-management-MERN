@@ -4,16 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        "bg-color-dark-1": "#2A2E34",
-        "bg-color-dark-2": "#30353C",
+        "bg-color-dark-1": "#30353C",
+        "bg-color-dark-2": "#384047",
         "bg-color-dark-3": "#2A2E34",
-        "border-color-dark": "#414141",
+        "border-color-dark": "#4b4c4c",
         "text-color-dark": "#E3E4E6",
         "text-color-dark-lite": "#82909E",
         "hover-color-dark-1": "#3C414A",
         "hover-color-dark-2": "#4F5762",
         "bg-color-light-1": "#FFFFFF",
-        "hover-color-light-1": "#F0F1F3",
+        "bg-color-light-2": "#F7F8F9",
+        "hover-color-light-1": "#E5E7EB",
         "hover-color-light-2": "#D6D9DE",
         "text-color-light": "#2A2E34",
         "text-color-light-lite": "#697565",

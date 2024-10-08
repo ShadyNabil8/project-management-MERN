@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { listImage } from "../assets/images";
 import { Link, useParams } from "react-router-dom";
+import { IoListOutline } from "react-icons/io5";
 
-const List = ({ list, space }) => {
+const List = ({ listName, spaceId, listId }) => {
   const { workspaceId } = useParams();
+
   return (
     <Link
-      to={`/${workspaceId}/space/${space.id}/list/${list.id}`}
-      className="flex cursor-pointer items-center rounded-md p-2 hover:bg-gray-200"
+      to={`/${workspaceId}/space/${spaceId}/list/${listId}`}
+      className="my-hover flex cursor-pointer items-center rounded-md p-2"
     >
-      <span className="shrink-0">
-        <img className="size-[11px]" src={listImage}></img>
-      </span>
-      <span className="ml-2 text-sm text-text-color-light">{list.name}</span>
+      <IoListOutline className="normal-text-color shrink-0" />
+      <span className="normal-text-color ml-2 text-sm">{listName}</span>
     </Link>
   );
 };

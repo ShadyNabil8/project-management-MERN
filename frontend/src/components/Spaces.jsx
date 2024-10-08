@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Space from "./Space";
 import Option from "./Option";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ const Spaces = () => {
   const [isVisibleSpaces, setIisVisibleSpaces] = useState(false);
   const [isNewSpacePanelVisible, setIsNewSpacePanelVisible] = useState(false);
   const [isNewListPanelisible, setIsNewListPanelisible] = useState(false);
+  const [spaceIdOfNewList, setSpaceIdOfNewList] = useState(null);
   const { user } = useAuth();
 
   const spaces =
@@ -42,7 +43,9 @@ const Spaces = () => {
             <Space
               name={space.name}
               id={space._id}
+              lists={space.lists}
               setIsNewListPanelisible={setIsNewListPanelisible}
+              setSpaceIdOfNewList={setSpaceIdOfNewList}
               key={index}
             ></Space>
           ))}
@@ -57,7 +60,10 @@ const Spaces = () => {
         <NewSpacePanel setIsPanelVisible={setIsNewSpacePanelVisible} />
       )}
       {isNewListPanelisible && (
-        <NewListPanel setIsPanelVisible={setIsNewListPanelisible} />
+        <NewListPanel
+          setIsPanelVisible={setIsNewListPanelisible}
+          spaceIdOfNewList={spaceIdOfNewList}
+        />
       )}
     </div>
   );

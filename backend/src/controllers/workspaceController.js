@@ -78,8 +78,6 @@ const createWorkspaces = [
       );
 
       await workspaceInvitationModel.insertMany(workspaceInvitationDocuments);
-      console.log(workspaceInvitationDocuments);
-      console.log(invitedMembers);
       
       res.status(200).json({
         message: "Workspace created successfully",

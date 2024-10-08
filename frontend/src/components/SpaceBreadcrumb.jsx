@@ -1,31 +1,36 @@
 import React from "react";
 import Avatar from "./Avatar";
+import clsx from "clsx";
 
-const SpaceBreadcrumb = ({ space }) => {
+const SpaceBreadcrumb = ({ spaceName }) => {
   return (
-    <div className="flex cursor-default items-center gap-2 rounded-md p-1 hover:bg-gray-200 dark:hover:bg-hover-color-dark-1">
-      <span className="shrink-0">
-        {space ? (
+    <div
+      className={clsx(
+        "my-hover flex items-center gap-2 rounded-md p-1",
+        spaceName ? "pointer-events-auto" : "pointer-events-none",
+      )}
+    >
+      {spaceName ? (
+        <>
           <Avatar
-            name={space.name}
+            name={spaceName}
             fontSize="12px"
             size="20px"
             backgroundColor="#F1C1C3"
             textColor="#3D5456"
             round="5px"
           />
-        ) : (
-          <div
-            className={`size-[16px] animate-pulse rounded-[4px] bg-slate-300`}
-          ></div>
-        )}
-      </span>
-      {space?.name ? (
-        <span className="text-text-color-light text-sm font-medium dark:text-text-color-dark">
-          {space.name}
-        </span>
+          <span className="normal-text-color text-sm font-medium">
+            {spaceName}
+          </span>
+        </>
       ) : (
-        <div className="h-[18px] w-[80px] animate-pulse rounded-md bg-slate-300" />
+        <>
+          <div
+            className={`size-[16px] animate-pulse rounded-[4px] bg-slate-200 dark:bg-slate-600`}
+          ></div>
+          <div className="h-[18px] w-[80px] animate-pulse rounded-md bg-slate-200 dark:bg-slate-600" />
+        </>
       )}
     </div>
   );

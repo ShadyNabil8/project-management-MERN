@@ -1,23 +1,33 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchSpace } from "../api";
 import useFetchData from "../hooks/useFetchData";
 import SpaceBreadcrumb from "./SpaceBreadcrumb";
 import { useHeader } from "../context/HeaderContext";
-import { useAuth } from "../context/AuthContext";
+import { getSpace } from "../api";
 
 const SpaceDetails = () => {
-  const { spaceId, workspaceId } = useParams();
+  const { spaceId } = useParams();
   const { setHeaderContent } = useHeader();
-  const { user } = useAuth();
 
-  const space = user.workspaces
-    .find((workspace) => workspace._id === workspaceId)
-    .spaces.find((space) => space._id === spaceId);
+  const { data: space, isLoading } = useFetchData(
+    ["spaces", spaceId],
+    async () => getSpace(spaceId),
+  );
 
   useEffect(() => {
-    setHeaderContent(<SpaceBreadcrumb space={space} />);
+    setHeaderContent(
+      <div className="cursor-default">
+        <SpaceBreadcrumb spaceName={space?.name} />
+      </div>,
+    );
     return () => setHeaderContent(null);
+  }, [space]);
+
+  useEffect(() => {
+    console.log(spaceId);
+  }, [spaceId]);
+  useEffect(() => {
+    console.log(space);
   }, [space]);
 
   return (

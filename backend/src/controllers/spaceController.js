@@ -4,44 +4,43 @@ const workspaceModel = require("../models/workspaceModel");
 const { delay } = require("../utils/utils");
 const { body, validationResult } = require("express-validator");
 
-const fetchSpaces = async (req, res, next) => {
+const getSpaces = async (req, res, next) => {
   try {
     await delay(1000);
 
     const { workspaceId, spaceId } = req.query;
 
-    if (!workspaceId) {
+    // Ensure at least one identifier is provided
+    if (!workspaceId && !spaceId) {
       return res.status(400).json({
-        message: "No workspace id provided",
+        message:
+          "Please provide either a workspaceId or spaceId to retrieve spaces.",
       });
     }
 
     let spacesDocuments;
 
     if (spaceId) {
-      const spaceDocument = await spaceModel
-        .findById(spaceId, { workspaceId: 1, name: 1 })
-        .lean();
+      // Fetch space by ID
+      const spaceDocument = await spaceModel.findById(spaceId).lean();
       if (!spaceDocument) {
         return res.status(404).json({
-          message: "Space not found",
+          message: `Space with ID ${spaceId} not found.`,
         });
       }
-      spacesDocuments = [spaceDocument]; // Wrap in an array for consistency
-    } else {
+      spacesDocuments = [spaceDocument]; // Ensure consistency by wrapping in array
+    } else if (workspaceId) {
+      // Fetch spaces by workspace ID
       spacesDocuments = await spaceModel.find({ workspaceId }).lean();
-      if (!spacesDocuments || spacesDocuments.length === 0) {
-        return res.status(404).json({
-          message: "No spaces found",
-        });
-      }
     }
 
+    // Return the found spaces
     return res.status(200).json({
-      spacesDocuments,
+      message: "Spaces retrieved successfully",
+      spaces: spacesDocuments,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -100,4 +99,4 @@ const createSpace = [
   },
 ];
 
-module.exports = { fetchSpaces, createSpace };
+module.exports = { getSpaces, createSpace };
