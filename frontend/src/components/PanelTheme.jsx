@@ -25,7 +25,7 @@ const PanelTheme = ({ setIsPanelVisible }) => {
       <p className="mt-1 text-start text-[15px] text-text-color-light-lite dark:text-text-color-dark-lite">
         Customize your Workspace by changing the appearance and theme color.
       </p>
-      <div className="mt-5 flex w-full rounded-md bg-[#F0F1F3] p-[2px] dark:bg-hover-color-dark-1">
+      <div className="mt-5  flex w-full rounded-md bg-[#F0F1F3] p-[2px] dark:bg-[#444953]">
         <ThemeButton colorTheme="light">
           <MdOutlineLightMode /> <span>Light</span>
         </ThemeButton>

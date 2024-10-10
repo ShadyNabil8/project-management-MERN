@@ -38,7 +38,7 @@ const Spaces = () => {
         <span className="mb-1 block text-[13px] text-text-color-light dark:text-text-color-dark">
           Spaces
         </span>
-        <div>
+        <div className="flex flex-col gap-[2px]">
           {spaces.map((space, index) => (
             <Space
               name={space.name}

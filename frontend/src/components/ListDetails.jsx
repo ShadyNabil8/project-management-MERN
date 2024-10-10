@@ -4,11 +4,12 @@ import ListBreadcrumb from "./ListBreadcrumb";
 import { useHeader } from "../context/HeaderContext";
 import useFetchData from "../hooks/useFetchData";
 import { getList } from "../api";
+import TasksCollection from "./TasksCollection";
 
 const ListDetails = () => {
   const { listId } = useParams();
   const { setHeaderContent } = useHeader();
-  
+
   const { data: list, isLoading } = useFetchData(["lists", listId], async () =>
     getList(listId),
   );
@@ -21,7 +22,10 @@ const ListDetails = () => {
   }, [list]);
 
   return (
-    <div className="dark:bg-bg-color-dark-1">{`This is the summary of list`}</div>
+    <div className="bg-bg-color-light-1 dark:bg-bg-color-dark-1 p-8">
+      <TasksCollection >
+      </TasksCollection>
+    </div>
   );
 };
 

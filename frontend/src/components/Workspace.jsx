@@ -7,7 +7,7 @@ const Workspace = ({ workspace }) => {
     <Link
       reloadDocument
       to={`/${workspace._id}/home`}
-      className="flex cursor-pointer items-center rounded-md p-2 hover:bg-gray-200"
+      className="flex cursor-pointer items-center rounded-md p-2 my-hover"
     >
       <Avatar
         name={workspace.name}

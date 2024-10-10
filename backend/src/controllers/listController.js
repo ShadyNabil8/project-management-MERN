@@ -38,7 +38,6 @@ const getList = async (req, res, next) => {
       // Fetch lists by workspace ID
       listsDocuments = await listModel.find({ space: spaceId }).lean();
     }
-    console.log(listsDocuments[0]);
 
     // Return the found spaces
     return res.status(200).json({

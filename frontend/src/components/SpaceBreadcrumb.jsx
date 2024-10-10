@@ -6,7 +6,7 @@ const SpaceBreadcrumb = ({ spaceName }) => {
   return (
     <div
       className={clsx(
-        "my-hover flex items-center gap-2 rounded-md p-1",
+        "flex items-center gap-2 rounded-[4px] px-2 py-[2px] hover:bg-hover-color-light-1 dark:hover:bg-hover-color-dark-2",
         spaceName ? "pointer-events-auto" : "pointer-events-none",
       )}
     >
@@ -15,10 +15,10 @@ const SpaceBreadcrumb = ({ spaceName }) => {
           <Avatar
             name={spaceName}
             fontSize="12px"
-            size="20px"
+            size="18px"
             backgroundColor="#F1C1C3"
             textColor="#3D5456"
-            round="5px"
+            round="4px"
           />
           <span className="normal-text-color text-sm font-medium">
             {spaceName}

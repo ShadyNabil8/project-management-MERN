@@ -3,7 +3,8 @@ import AddedTaskColor from "./AddedTaskColor";
 import ColorPalette from "./ColorPalette";
 
 const AddedTaskStatus = ({
-  status,
+  statusName,
+  statusColor,
   setTempTaskStatuses,
   setChangedOccurred,
   taskStatusName,
@@ -16,9 +17,7 @@ const AddedTaskStatus = ({
         [taskStatusName]: prev[taskStatusName].map((addedStatus) => ({
           ...addedStatus,
           name:
-            addedStatus.name === status.name
-              ? e.target.value
-              : addedStatus.name,
+            addedStatus.name === statusName ? e.target.value : addedStatus.name,
         })),
       };
     });
@@ -27,24 +26,27 @@ const AddedTaskStatus = ({
   };
   const handleOnAddedTackColorChange = (newColor) => {
     setTempTaskStatuses((prev) => {
-      return prev.map((addedStatus) => ({
-        ...addedStatus,
-        color: addedStatus.name === status.name ? newColor : addedStatus.color,
-      }));
+      return {
+        ...prev,
+        [taskStatusName]: prev[taskStatusName].map((addedStatus) => ({
+          ...addedStatus,
+          color: addedStatus.name === statusName ? newColor : addedStatus.name,
+        })),
+      };
     });
     setChangedOccurred(true);
   };
   return (
     <div className="normal-text-color relative flex items-center gap-4 rounded-md border border-border-color-light bg-transparent pl-[15%] hover:border-gray-400 dark:border-gray-600 dark:bg-transparent dark:hover:border-gray-500">
       <AddedTaskColor
-        color={status.color}
+        color={statusColor}
         onClick={() => setIsColorPaletteVisible(true)}
       />
 
       <input
         type="text"
         placeholder=""
-        value={status.name}
+        value={statusName}
         onChange={handleOnAddedTackNameChange}
         className="normal-text w-full bg-transparent px-2 py-1 focus:outline-none"
       />

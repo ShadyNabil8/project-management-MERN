@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useParams } from "react-router-dom";
 import Avatar from "./Avatar";
 import DownArrowIcon from "./icons/DownArrowIcon";
 import DotsIcon from "./icons/DotsIcon";
@@ -7,6 +7,7 @@ import PlusIcon from "./icons/PlusIcon";
 import NewListPanel from "./NewListPanel";
 import Lists from "./Lists";
 import List from "./List";
+import clsx from "clsx";
 
 const Space = ({
   name,
@@ -17,14 +18,22 @@ const Space = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDropped, setIsDropped] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
   const { workspaceId } = useParams();
 
   return (
     <div>
-      <Link
+      <NavLink
         to={`/${workspaceId}/space/${id}`}
-        className="my-hover relative flex cursor-pointer items-center gap-2 rounded-md p-[6px]"
+        end
+        className={({ isActive }) => {
+          setIsSelected(isActive);
+          return clsx(
+            "relative flex items-center gap-2 rounded-md p-[6px]",
+            isSelected ? "bg-[#D9EDFA] dark:bg-[#224D6B]" : "my-hover",
+          );
+        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -37,7 +46,7 @@ const Space = ({
           round="5px"
           image={
             isHovered ? (
-              <DownArrowIcon customStyle="normal-text-color text-lg" />
+              <DownArrowIcon customStyle="normal-text-color text-md" />
             ) : null
           }
           onClick={(e) => {
@@ -46,22 +55,32 @@ const Space = ({
             setIsDropped((prev) => !prev);
           }}
         />
-        <span className="ml-2 flex items-center text-sm font-medium text-text-color-light dark:text-text-color-dark">
+        <span className="ml-2 flex items-center text-sm text-text-color-light dark:text-text-color-dark">
           {name}
         </span>
-        {isHovered && (
+        {(isSelected || isHovered) && (
           <div className="absolute right-3 flex items-center gap-1">
-            <DotsIcon customStyle="lite-text-color" />
+            <DotsIcon
+              customStyle="lite-text-color"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setIsNewListPanelisible(true);
+                setSpaceIdOfNewList(id);
+              }}
+            />
             <PlusIcon
               customStyle="lite-text-color "
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
                 setIsNewListPanelisible(true);
                 setSpaceIdOfNewList(id);
               }}
             />
           </div>
         )}
-      </Link>
+      </NavLink>
       {isDropped && (
         <Lists>
           {lists.map((list, index) => (

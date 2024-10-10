@@ -26,7 +26,8 @@ const TaskStatusCollection = ({
       {tempTaskStatuses[taskStatusName].map((status, index) => (
         <AddedTaskStatus
           key={index}
-          status={status}
+          statusName={status.name}
+          statusColor={status.color}
           setTempTaskStatuses={setTempTaskStatuses}
           setChangedOccurred={setChangedOccurred}
           taskStatusName={taskStatusName}
