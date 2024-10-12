@@ -111,4 +111,19 @@ describe("POST /user/signup", () => {
       expect.any(Object)
     );
   });
+
+  it("should handle errors and call next with an error", async () => {
+    // Simulate an error in `getUserInitialData`.
+    const mockError = new Error("Database error");
+    userModel.findOne.mockRejectedValue(mockError);
+
+    const response = await request(app).post("/user/signup").send({
+      fullName: "shady",
+      email: "shady@gmail.com",
+      password: "123456789",
+    });
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body.message).toBe("Database error");
+  });
 });

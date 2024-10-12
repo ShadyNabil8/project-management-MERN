@@ -5,7 +5,6 @@ const dbConnect = require("./config/db");
 const { errorHandler } = require("./middlewares/errorHandler");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const userController = require("./controllers/userController");
 const app = express();
 
 app.use(
@@ -41,10 +40,12 @@ app.use("/images", express.static("public/images"));
 
 app.use(errorHandler);
 
-// dbConnect();
+if (process.env.NODE_ENV !== "test") {
+  dbConnect();
 
-// app.listen(config.port, () => {
-//   console.log(`Server is running on port ${config.port}`);
-// });
+  app.listen(config.port, () => {
+    console.log(`Server is running on port ${config.port}`);
+  });
+}
 
 module.exports = app;

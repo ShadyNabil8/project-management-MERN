@@ -1,13 +1,10 @@
 require("dotenv").config();
-const { CustomError } = require("../middlewares/errorHandler");
 const userModel = require("../models/userModel");
 const verificationCodeModel = require("../models/verificationCodeModel");
 const { hashPassword, comparePassword } = require("../utils/password");
 const { generateAccessToken, generateRefreshToken } = require("../utils/token");
 const { delay } = require("../utils/utils");
 const { body, validationResult } = require("express-validator");
-const { sendVerificationCode } = require("../utils/email");
-const crypto = require("crypto");
 const getUserInitialData = require("../utils/utils").getUserInitialData;
 const generateAndSendVerificationCode =
   require("../utils/utils").generateAndSendVerificationCode;
@@ -66,7 +63,7 @@ const login = async (req, res, next) => {
 
 const logout = async function (req, res, next) {
   try {
-    await delay(1000);
+    // await delay(1000);
     res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: true,
@@ -80,7 +77,7 @@ const logout = async function (req, res, next) {
 
 const getUser = async function (req, res, next) {
   try {
-    await delay(1000);
+    // await delay(1000);
 
     const { _id } = req.user;
     const userDocument = await userModel.findById(_id);
@@ -104,22 +101,6 @@ const getUser = async function (req, res, next) {
     });
   } catch (error) {
     next(error);
-  }
-};
-
-const searchUser = async function (req, res, next) {
-  try {
-    const { email } = req.query;
-
-    const userDocument = await userModel.findOne({ email });
-
-    if (!userDocument) {
-      throw new CustomError("User not found", 404);
-    }
-
-    return res.status(200).json(userDocument.email);
-  } catch (error) {
-    return next(error);
   }
 };
 
@@ -298,7 +279,6 @@ const checkCooldownPeriod = async (userId) => {
 module.exports = {
   login,
   getUser,
-  searchUser,
   signup,
   verifyEmail,
   resendVerificationCode,

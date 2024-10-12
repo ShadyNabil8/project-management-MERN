@@ -88,7 +88,7 @@ describe("POST /user/login", () => {
     const error = new Error("Something went wrong");
 
     userModel.findOne.mockReturnValue({
-      lean: jest.fn().mockResolvedValue(error),
+      lean: jest.fn().mockRejectedValue(error),
     });
     const next = jest.fn();
     const req = {
