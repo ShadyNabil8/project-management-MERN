@@ -1,20 +1,20 @@
 const defaultTaskStatuses = {
   notStarted: [
     {
-      name: "TO DO",
+      name: "To Do",
       color: "#87909E",
     },
   ],
   active: [
     {
-      name: "IN PROGRESS",
+      name: "In Progress",
       color: "#5F55EE",
     },
   ],
   done: [],
   closed: [
     {
-      name: "COMPLETE",
+      name: "Complete",
       color: "#008844",
     },
   ],
