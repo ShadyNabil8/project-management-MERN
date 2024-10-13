@@ -1,4 +1,4 @@
-# Project Management App
+# Project Management App (Not completed)
 
 This is a task and project management web application designed to help teams and individuals organize and track their work efficiently. The app includes features such as workspaces, spaces (projects), lists (tasks), and task statuses like "To Do," "In Progress," and "Complete."
 
@@ -6,10 +6,22 @@ This is a task and project management web application designed to help teams and
 
 This project is built using the **MERN stack**, and includes the following technologies:
 
-- **Frontend**: React.js, Tailwind CSS
-- **Backend**: Node.js, Express.js
+#### Backend:
+
+- **Node.js**
+- **Express.js**
 - **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Token)
+- **nodemailer**: For sending emails.
+- **Swager**: For APIs testing.
+- **Jest**: For APIs testing.
+
+#### Frontend:
+
+- **React.js**
+- **TanStack Query** for data fetching.
+- **react react router dom** for routing.
+- **react toastify** for displaying notifications.
+- **Tailwind CSS**
 
 ## Features
 
@@ -84,7 +96,15 @@ You need to have the following installed on your system:
    npm start
    ```
 
-   The app will be available at `http://localhost:5000`.
+7. **You can test APIs using this command:**
+
+   ```bash
+   npm test
+   ```
+
+The app will be available at `http://localhost:3000`.
+
+Test API using Swagger at `http://localhost:3000/api-docs`
 
 ### Frontend
 
@@ -108,22 +128,14 @@ The frontend of the application is built using **React.js**. To run the frontend
    npm run dev
    ```
 
-## Usage
-
-1. **Create a workspace**: After logging in, create a workspace for your team or project.
-2. **Add spaces**: Each workspace can have multiple spaces representing different projects.
-3. **Add lists to spaces**: Within each space, create lists of tasks and assign them statuses like "To Do," "In Progress," and "Complete."
-4. **Invite collaborators**: Share your workspace with other users and work collaboratively.
-
 ## API Endpoints
 
 The backend of the app exposes a RESTful API to manage workspaces, spaces, lists, and tasks. Here are a few important endpoints:
 
-
 ### User Endpoints
+
 - `POST /user/login`  
   Authenticate a user and return an access token.
-  
 - `POST /user/signup`  
   Register a new user.
 
@@ -140,6 +152,7 @@ The backend of the app exposes a RESTful API to manage workspaces, spaces, lists
   Resend the email verification code to the user (requires authentication).
 
 ### Workspace Endpoints
+
 - `GET /workspace`  
   Retrieve all workspaces associated with the authenticated user (requires authentication).
 
@@ -147,14 +160,17 @@ The backend of the app exposes a RESTful API to manage workspaces, spaces, lists
   Create a new workspace (requires authentication).
 
 ### Workspace Invitation Endpoints
+
 - `POST /workspace-invitation/handle`  
   Handle a workspace invitation, accepting or rejecting it (requires authentication).
 
 ### Token Endpoints
+
 - `POST /token`  
   Refresh an expired access token using a refresh token.
 
 ### Space Endpoints
+
 - `GET /space`  
   Retrieve spaces within a workspace or by a specific space ID (requires authentication).
 
@@ -162,6 +178,7 @@ The backend of the app exposes a RESTful API to manage workspaces, spaces, lists
   Create a new space within a workspace (requires authentication).
 
 ### List Endpoints
+
 - `GET /list`  
   Retrieve lists associated with a specific space or by a specific list ID (requires authentication).
 
@@ -184,4 +201,3 @@ If you have any questions or feedback, feel free to reach out:
 
 - **Email**: shadyngheith@gmail.com
 - **Linkedin**: [Linkedin](https://www.linkedin.com/in/shady-nabil-6823b323a/)
-
